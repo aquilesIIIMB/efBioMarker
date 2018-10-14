@@ -37,9 +37,9 @@ database_stim = {{[main_path,'Maravilla (Suj01)/+2500_300Hz/maravilla_2017-06-17
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % variables to set
-database = database_int;
-labels_db = ones(length(database),1).* 2; % C:0 L-I:1 L-M:2 L-A:3
-channel_codes = {'flo','flo','flo'}; % flo caro_exp03
+database = database_avan;
+labels_db = ones(length(database),1).* 3; % C:0 L-I:1 L-M:2 L-A:3
+channel_codes = {'flo','flo','caro_exp03'}; % flo caro_exp03
 hemispher_use = {'par','par','par'}; % par: derecho, impar: izquierda
 
 set_type = 'train-test'; % train-test trat
