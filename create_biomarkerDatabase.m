@@ -11,8 +11,7 @@ database_inic = {{[main_path,'Maravilla (Suj01)/-375/maravilla_2017-06-05_10-47-
     [main_path,'Maravilla (Suj01)/-375/maravilla_2017-06-05_10-47-34/maravilla_2017-06-05_10-47-34_regAmp.mat']},...
     {[main_path,'Arturo (Suj02)/+375/arturo2_2017-05-29_11-38-35/arturo2_2017-05-29_11-38-35.mat'],...
     [main_path,'Arturo (Suj02)/+375/arturo2_2017-05-29_11-38-35/arturo2_2017-05-29_11-38-35_regAmp.mat']},...
-    {[main_path,'Charles (Suj03)/+375/charles_2017-06-05_10-26-26/charles_2017-06-05_10-26-26.mat'],...
-    [main_path,'Charles (Suj03)/+375/charles_2017-06-05_10-26-26/charles_2017-06-05_10-26-26_regAmp.mat']}};
+    [main_path,'Charles (Suj03)/300Hz/charles_2017-06-08_13-09-12/charles_2017-06-08_13-09-12.mat']};
 
 % Intermedio 3
 database_int = {{[main_path,'Maravilla (Suj01)/+2500_300Hz/maravilla_2017-06-17_16-39-32/maravilla_2017-06-17_16-39-32.mat'],...
@@ -35,12 +34,14 @@ database_stim = {{[main_path,'Maravilla (Suj01)/+2500_300Hz/maravilla_2017-06-17
     {[main_path,'Arturo (Suj02)/+2500_300Hz/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39.mat'],...
     [main_path,'Arturo (Suj02)/+2500_300Hz/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39_regAmp.mat']}};
 
+database_extras = {['']};
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % variables to set
-database = database_avan;
-labels_db = ones(length(database),1).* 3; % C:0 L-I:1 L-M:2 L-A:3
-channel_codes = {'flo','flo','caro_exp03'}; % flo caro_exp03
-hemispher_use = {'par','par','par'}; % par: derecho, impar: izquierda
+database = database_extras;
+labels_db = ones(length(database),1).* 1; % C:0 L-I:1 L-M:2 L-A:3
+channel_codes = {'flo'}; % flo caro_exp03
+hemispher_use = {'impar'}; % par: derecho, impar: izquierda
 
 set_type = 'train-test'; % train-test trat
 timeRange = [0, 5]*60; %seconds
@@ -62,13 +63,13 @@ dim_frac_gen_beta = [];
 dim_frac_gen_gammaL = [];
 
 
-for i = 1:length(database)
+for idx_db = 1:length(database)
 
-    if length(database{i}) == 2
-        load(database{i}{1})
-        load(database{i}{2})
+    if length(database{idx_db}) == 2
+        load(database{idx_db}{1})
+        load(database{idx_db}{2})
     else
-        load(database{i})
+        load(database{idx_db})
     end
     
     Biomarker = ones(10, length(registroLFP.areas));
@@ -120,7 +121,7 @@ for i = 1:length(database)
         osci = osci+30; %Para subir los valores negativos en todos los psd por igual debido a IRASA
 
         [idx_pk_osci,idx_Npk_osci,idx_ptos_osci,mean_range_osci,n_events_osci] = highPowerBetaPkEvent(osci, 20);
-        osci_measure = mean(osci(idx_pk_osci));%sum
+        osci_measure = mean(osci(idx_pk_osci));%sum or mean
         mean_osci_Npk = mean(osci(idx_Npk_osci));
         if isnan(osci_measure)
             osci_measure = 0;
@@ -130,13 +131,13 @@ for i = 1:length(database)
         % Potencia fractal
         frac = sum(Spectrogram_frac_mean(t_pre(~ismember(t_pre,idx_spect_artifacts)),:),2);
         [idx_pk_frac,idx_Npk_frac,idx_ptos_frac,mean_range_frac,n_events_frac] = highPowerBetaPkEvent(frac, 70);
-        frac_measure = mean(frac(idx_pk_frac));%sum
+        frac_measure = mean(frac(idx_pk_frac));%sum or mean
         mean_frac_Npk = mean(frac(idx_Npk_frac));
         if isnan(frac_measure)
             frac_measure = 0;
             mean_frac_Npk = 0;
         end
-
+        
         % Dim fractal
         frac_temp = Spectrogram_frac_mean(t_pre(~ismember(t_pre,idx_spect_artifacts)),:);
 
@@ -156,30 +157,31 @@ for i = 1:length(database)
         dim_gen_alpha = mean(dim_gen(1,:));
         dim_gen_beta = mean(dim_gen(2,:));
         dim_gen_gammaL = mean(dim_gen(3,:));
-
+        
         % BM Izquierda primero y despues derecha, DLS, S1, SMA, M1, VPL
         Biomarker(1,m) = osci_measure;
         Biomarker(2,m) = sum(osci);
         Biomarker(3,m) = frac_measure;
         Biomarker(4,m) = sum(frac);
+        
         Biomarker(5,m) = dim_pk_alpha;
         Biomarker(6,m) = dim_pk_beta;
         Biomarker(7,m) = dim_pk_gammaL;
         Biomarker(8,m) = dim_gen_alpha;
         Biomarker(9,m) = dim_gen_beta;
         Biomarker(10,m) = dim_gen_gammaL;
-
+        
 
     end
     disp(' ')
     disp(' ')
 
     %%% Ordenar izquierda impar, derecha par
-    if strcmp(channel_codes,'flo') 
+    if strcmp(channel_codes{idx_db},'flo') 
         % Primeros 5 izqueirda y siguiente derecha
         Biomarker_temp(:,1:2:end) = Biomarker(:,[4,1,5]); % 1,2,3,4,5 DLS, S1, SMA, M1, VPL
         Biomarker_temp(:,2:2:end) = Biomarker(:,[9,6,10]); % 6,7,8,9,10 DLS, S1, SMA, M1, VPL
-    elseif strcmp(channel_codes,'caro_exp03') 
+    elseif strcmp(channel_codes{idx_db},'caro_exp03') 
         % Orden de expC03 
         Biomarker_temp(:,1:2:end) = Biomarker(:,[1,2,7]); % 1,2,6,7 lCFA, lSTR, lPf, lVPL
         Biomarker_temp(:,2:2:end) = Biomarker(:,[3,4,8]); % 3,4,5,8 rCFA, rSTR, rPf, rVPL

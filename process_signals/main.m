@@ -12,32 +12,32 @@ clear; close all
 
 %% Parametros editables por el usuario 
 %% Ruta de la carpeta de los LFP
-path = '/home/controlmotor/Aquiles/Database/CA_EC03_C14_CS300__2018-09-28_16-38-37/';
+path = 'D:\Descargas\Trabajo de titulo\Database\300Hz\charles_2017-06-08_13-09-12\';
 %path = input('path: \n','s');
 
 %% Intervalos de tiempo del protocolo
-%timeRanges = [5, 5, 5]; %DC or AC
+timeRanges = [5, 5, 5]; %DC or AC
 %timeRanges = [6, 6, 6]; %Mixtos
-timeRanges = [5, 15, 15]; % caro 8/15/15
+%timeRanges = [5, 15, 15]; % caro 8/15/15
 %timeRanges = input('timeRanges: \n');
 
 %% Amplitud del umbral para remover artefactos
 threshold_amplitudes = [10, 10, 10]; % 8,9,10 desde el mas sucio al mas limpio
 
 %% Canales que se analizaran
-eval_channels = [1:38,43:53,60:64];
+%eval_channels = [1:38,43:53,60:64];
 %eval_channels = [14:21,46:53];
-%eval_channels = 1:64;
+eval_channels = 1:64;
 %eval_channels = input('eval_channels: \n');
 
 %% Codificacion de canales
 %channel_codes = 'channel-codes/channel_codes_florencia.csv'; % Flo
 %channel_codes = 'channel-codes/channel_codes_florencia_2_modificado.csv'; % Flo Esgrima UCH 
 %%%  (Se dejaron las mismas areas que en 'channel_codes_florencia_PUC.csv' y se invirtieron los hemisferios originals L->R y R->L)
-%channel_codes = 'channel-codes/channel_codes_florencia_PUC.csv'; % Flo Futbolistas UC
+channel_codes = 'channel-codes/channel_codes_florencia_PUC.csv'; % Flo Futbolistas UC
 %channel_codes = 'channel-codes/channel_codes_Rata_R01_modificado.csv'; % Caro 
 %%%  (Se invirtieron los hemisferios originals L->R y R->L)
-channel_codes = 'channel-codes/channel_codes_caro_expC03.csv';
+%channel_codes = 'channel-codes/channel_codes_caro_expC03.csv';
 %channel_codes = input('channel_codes: \n','s');
 
 %% Fin de los parametros
