@@ -371,7 +371,7 @@ for j = 1:3 %areas
     set(h_pre,'LineWidth',10);
     hold on
 end
-set(gca, 'XTick', x(:)', 'XTickLabel', {'C','L-I','L-M','L-A'})
+set(gca, 'XTick', x(:)', 'XTickLabel', {'C','E','I','L'})
 ylim([0, 160])
 xlim([x(1)-0.2, x(end)+0.2])
 ylabel("Potencia oscilatoria [mW/Hz]")
@@ -621,6 +621,155 @@ ylabel("Potencia oscilatoria [mW/Hz]")
 title("Suma de potencia oscilatoria en la banda alfa-beta durante alzas de potencia") % En los momentos de alza
 set(gca,'fontsize',30)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Las mejores caracteristicas (4)
+% Promedio Potencia oscilatoria STR
+fig = figure('units','normalized','outerposition',[0 0 0.4 0.9]);
+feature_eval = [];
+for i = 1:3 % areas
+    feature_eval = [feature_eval,BiomarkerDataBase_EP(:,5*i-4)]; % caracteristicas
+end
+x = [0.85 0.9 0.95 1];
+%{
+pc_pts = bar(x(1)', median(feature_eval(Labels_BM_EP == 0,2)),0.1,'FaceColor',azul);
+hold on
+pc_pts = bar(x(2)', median(feature_eval(Labels_BM_EP == 1,2)),0.1,'FaceColor',rojo);
+pc_pts = bar(x(3)', median(feature_eval(Labels_BM_EP == 2,2)),0.1,'FaceColor',verde);
+pc_pts = bar(x(4)', median(feature_eval(Labels_BM_EP == 3,2)),0.1,'FaceColor',morado);
+%}
+
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,2)','*','MarkerSize',45,'LineWidth',20);
+set(pc_pts,{'Color'},{azul;azul})
+hold on
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,2)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,2)','*','MarkerSize',45,'LineWidth',20);
+set(pli_pts,{'Color'},{rojo;rojo;rojo})
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,2)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,2)','*','MarkerSize',45,'LineWidth',20);
+set(plm_pts,{'Color'},{verde;verde;verde})
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,2)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,2)','*','MarkerSize',45,'LineWidth',20);
+set(pla_pts,{'Color'},{morado;morado;morado})
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,2)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+set(gca, 'XTick', x(:)', 'XTickLabel', {'C','E','I','L'})
+ylabel("Potencia oscilatoria [mW/Hz]")
+title("Suma de potencia oscilatoria en la banda alfa-beta durante alzas de potencia") % En los momentos de alza
+set(gca,'fontsize',40)
+ylim([0, 120])
+xlim([x(1)-0.02, x(end)+0.02])
+
+
+% Promedio D3 fractal M1
+fig = figure('units','normalized','outerposition',[0 0 0.4 0.9]);
+feature_eval = [];
+for i = 1:3 % areas
+    feature_eval = [feature_eval,BiomarkerDataBase_EP(:,5*i-1)]; % caracteristicas
+end
+x = [0.85 0.9 0.95 1];
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,1)','*','MarkerSize',45,'LineWidth',20);
+set(pc_pts,{'Color'},{azul;azul})
+hold on
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,1)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,1)','*','MarkerSize',45,'LineWidth',20);
+set(pli_pts,{'Color'},{rojo;rojo;rojo})
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,1)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,1)','*','MarkerSize',45,'LineWidth',20);
+set(plm_pts,{'Color'},{verde;verde;verde})
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,1)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,1)','*','MarkerSize',45,'LineWidth',20);
+set(pla_pts,{'Color'},{morado;morado;morado})
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,1)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+set(gca, 'XTick', x(:)', 'XTickLabel', {'C','E','I','L'})
+ylabel("Potencia oscilatoria [mW/Hz]")
+title("Suma de potencia oscilatoria en la banda alfa-beta durante alzas de potencia") % En los momentos de alza
+set(gca,'fontsize',40)
+ylim([0.8, 2.2])
+xlim([x(1)-0.02, x(end)+0.02])
+
+
+% Promedio D3 fractal VPL
+fig = figure('units','normalized','outerposition',[0 0 0.4 0.9]);
+feature_eval = [];
+for i = 1:3 % areas
+    feature_eval = [feature_eval,BiomarkerDataBase_EP(:,5*i-1)]; % caracteristicas
+end
+x = [0.85 0.9 0.95 1];
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,3)','*','MarkerSize',45,'LineWidth',20);
+set(pc_pts,{'Color'},{azul;azul})
+hold on
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,3)','*','MarkerSize',45,'LineWidth',20);
+set(pli_pts,{'Color'},{rojo;rojo;rojo})
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,3)','*','MarkerSize',45,'LineWidth',20);
+set(plm_pts,{'Color'},{verde;verde;verde})
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,3)','*','MarkerSize',45,'LineWidth',20);
+set(pla_pts,{'Color'},{morado;morado;morado})
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+set(gca, 'XTick', x(:)', 'XTickLabel', {'C','E','I','L'})
+ylabel("Potencia oscilatoria [mW/Hz]")
+title("Suma de potencia oscilatoria en la banda alfa-beta durante alzas de potencia") % En los momentos de alza
+set(gca,'fontsize',40)
+ylim([1, 2.8])
+xlim([x(1)-0.02, x(end)+0.02])
+
+
+% Promedio D4 fractal VPL
+fig = figure('units','normalized','outerposition',[0 0 0.4 0.9]);
+feature_eval = [];
+for i = 1:3 % areas
+    feature_eval = [feature_eval,BiomarkerDataBase_EP(:,5*i)]; % caracteristicas
+end
+x = [0.85 0.9 0.95 1];
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,3)','*','MarkerSize',45,'LineWidth',20);
+set(pc_pts,{'Color'},{azul;azul})
+hold on
+pc_pts = plot(x(1)', feature_eval(Labels_BM_EP == 0,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,3)','*','MarkerSize',45,'LineWidth',20);
+set(pli_pts,{'Color'},{rojo;rojo;rojo})
+pli_pts = plot(x(2)', feature_eval(Labels_BM_EP == 1,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,3)','*','MarkerSize',45,'LineWidth',20);
+set(plm_pts,{'Color'},{verde;verde;verde})
+plm_pts = plot(x(3)', feature_eval(Labels_BM_EP == 2,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,3)','*','MarkerSize',45,'LineWidth',20);
+set(pla_pts,{'Color'},{morado;morado;morado})
+pla_pts = plot(x(4)', feature_eval(Labels_BM_EP == 3,3)','ko','MarkerSize',45,'LineWidth',5);
+hold on
+set(gca, 'XTick', x(:)', 'XTickLabel', {'C','E','I','L'})
+ylabel("Potencia oscilatoria [mW/Hz]")
+title("Suma de potencia oscilatoria en la banda alfa-beta durante alzas de potencia") % En los momentos de alza
+set(gca,'fontsize',40)
+ylim([1, 2.8])
+xlim([x(1)-0.02, x(end)+0.02])
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -637,20 +786,21 @@ set(gca,'fontsize',30)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Ranking de caracteristicas y areas
-fig = figure('units','normalized','outerposition',[0 0 1 0.6]);
+fig = figure('units','normalized','outerposition',[0 0 0.8 1]);
 x = [1:15];
 [~, I] = sort(accuracy_all(:,7),'descend');
 accuracy_all_sorted = accuracy_all(I,:);
 accuracy_all_sorted = fliplr(accuracy_all_sorted(:,3:end));
 color_sel = {negro;azul;rojo;verde;morado};
 for i=1:4
-    p_pts = plot(accuracy_all_sorted(:,6-i),'*','Color',color_sel{6-i},'MarkerSize',25,'LineWidth',12);
+    p_pts = plot(accuracy_all_sorted(:,6-i),'o','Color',color_sel{6-i},'MarkerSize',30,'LineWidth',6);
     hold on
-    p_line = plot(accuracy_all_sorted(:,6-i),'-','Color',color_sel{6-i},'LineWidth',6);
+    %p_line = plot(accuracy_all_sorted(:,6-i),'-','Color',color_sel{6-i},'LineWidth',6);
 end
-p_pts = plot(accuracy_all_sorted(:,1),'*','Color',color_sel{1},'MarkerSize',40,'LineWidth',15);
+p_pts = plot(accuracy_all_sorted(:,1),'+','Color',color_sel{1},'MarkerSize',30,'LineWidth',10);
 hold on
-p_line = plot(accuracy_all_sorted(:,1),'-','Color',color_sel{1},'LineWidth',12);
+p_line = plot(accuracy_all_sorted(:,1),'-','Color',color_sel{1},'LineWidth',10);
+
 xtl = {'\begin{tabular}{c} D3 \\ M1\end{tabular}', '\begin{tabular}{c} Po \\ STR\end{tabular}',...
     '\begin{tabular}{c} D4 \\ M1\end{tabular}', '\begin{tabular}{c} Psf \\ STR\end{tabular}',...
     '\begin{tabular}{c} Po \\ M1\end{tabular}', '\begin{tabular}{c} D2 \\ STR\end{tabular}',...
@@ -665,10 +815,10 @@ xlim([x(1)-0.2, x(end)+0.2])
 ylim([0, 100])
 ylabel("Classification (%)")
 xlabel("Area features")
+grid on
 
 
-
-fig = figure('units','normalized','outerposition',[0 0 1 0.8]);
+fig = figure('units','normalized','outerposition',[0 0 1 0.7]);
 x = [1:3];
 areas_list = [[1:3]',[accuracy_STR_total;accuracy_S1_total;accuracy_SMA_total]];
 [~, I] = sort(areas_list(:,6),'descend');
@@ -676,22 +826,23 @@ areas_sorted = areas_list(I,:);
 areas_sorted = fliplr(areas_sorted(:,2:end));
 color_sel = {negro;azul;rojo;verde;morado};
 for i=1:4
-    p_pts = plot(areas_sorted(:,6-i),'*','Color',color_sel{6-i},'MarkerSize',25,'LineWidth',12);
+    p_pts = plot(areas_sorted(:,6-i),'o','Color',color_sel{6-i},'MarkerSize',30,'LineWidth',8);
     hold on
-    p_line = plot(areas_sorted(:,6-i),'-','Color',color_sel{6-i},'LineWidth',6);
+    %p_line = plot(areas_sorted(:,6-i),'-','Color',color_sel{6-i},'LineWidth',6);
 end
-p_pts = plot(areas_sorted(:,1),'*','Color',color_sel{1},'MarkerSize',40,'LineWidth',15);
+p_pts = plot(areas_sorted(:,1),'+','Color',color_sel{1},'MarkerSize',30,'LineWidth',10);
 hold on
-p_line = plot(areas_sorted(:,1),'-','Color',color_sel{1},'LineWidth',12);
+p_line = plot(areas_sorted(:,1),'-','Color',color_sel{1},'LineWidth',10);
 set(gca, 'XTick', x(:)', 'XTickLabel', {'M1','STR','VPL'})
 set(gca,'fontsize',30)
 xlim([x(1)-0.2, x(end)+0.2])
 ylim([0, 100])
 ylabel("Classification (%)")
 xlabel("Areas")
+grid on
 
 
-fig = figure('units','normalized','outerposition',[0 0 1 0.8]);
+fig = figure('units','normalized','outerposition',[0 0 1 0.7]);
 x = [1:5];
 features_list = [[1:5]',[accuracy_Po_total;accuracy_Psf_total;...
     accuracy_D2_total;accuracy_D3_total;accuracy_D4_total]];
@@ -700,19 +851,20 @@ features_sorted = features_list(I,:);
 features_sorted = fliplr(features_sorted(:,2:end));
 color_sel = {negro;azul;rojo;verde;morado};
 for i=1:4
-    p_pts = plot(features_sorted(:,6-i),'*','Color',color_sel{6-i},'MarkerSize',25,'LineWidth',12);
+    p_pts = plot(features_sorted(:,6-i),'o','Color',color_sel{6-i},'MarkerSize',30,'LineWidth',8);
     hold on
-    p_line = plot(features_sorted(:,6-i),'-','Color',color_sel{6-i},'LineWidth',6);
+    %p_line = plot(features_sorted(:,6-i),'-','Color',color_sel{6-i},'LineWidth',6);
 end
-p_pts = plot(features_sorted(:,1),'*','Color',color_sel{1},'MarkerSize',40,'LineWidth',15);
+p_pts = plot(features_sorted(:,1),'+','Color',color_sel{1},'MarkerSize',30,'LineWidth',10);
 hold on
-p_line = plot(features_sorted(:,1),'-','Color',color_sel{1},'LineWidth',12);
+p_line = plot(features_sorted(:,1),'-','Color',color_sel{1},'LineWidth',10);
 set(gca, 'XTick', x(:)', 'XTickLabel', {'Po','D3','D4','Psf','D2'})
 set(gca,'fontsize',30)
 xlim([x(1)-0.2, x(end)+0.2])
 ylim([0, 100])
 ylabel("Classification (%)")
 xlabel("Features")
+grid on
 
 
 

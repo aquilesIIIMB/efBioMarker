@@ -2,10 +2,17 @@
 %%% Codigo para agregar un exemplo para probar el BM
 %%% Testeo y tratado
 
+% Con control entre 0-5min
+% areas: 1,2 Best para el conjunt de prueba 1,2 Best 6-fold
+% features: [1,2,4,5],[1] Best para el conjunt de prueba [4],[1] Best 6-fold
+
+% Con control entre 25-30min
+% areas: 1,2,3 Best 6-fold
+% features: [4],[2],[5] Best 6-fold
 
 subjects = {[1:7];[1:4];[1:6]}; % 1:11
-areas = [1,2]; % 1,2 Best para este conjunt 1,2 Best 6-fold
-features = {[4],[1]}; % [1,2,4,5],[1] Best para este conjunt [4],[1] Best 6-fold
+areas = [1,2]; %
+features = {[4],[1]}; %
 
 comb_subj = [1, 3,4, 6,7, 9,10];
 comb_subj_test = [2,5,8,11];
@@ -46,5 +53,5 @@ disp(idxPk_train)
 disp('Parkinsonism Index of test')
 disp(idxPk_test)
 disp('Parkinsonism Index of treated')
-disp(idxPk_trat)
+disp([idxPk_trat,(idxPk_trat(1,:)-idxPk_trat)./(idxPk_trat(1,:))])
 

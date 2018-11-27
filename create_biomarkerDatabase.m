@@ -34,14 +34,14 @@ database_stim = {{[main_path,'Maravilla (Suj01)/+2500_300Hz/maravilla_2017-06-17
     {[main_path,'Arturo (Suj02)/+2500_300Hz/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39.mat'],...
     [main_path,'Arturo (Suj02)/+2500_300Hz/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39_regAmp.mat']}};
 
-database_extras = {['']};
+database_extras = {['D:\Descargas\Trabajo de titulo\Images\+2500_300Hz\maravilla_2017-06-17_16-39-32\maravilla_2017-06-17_16-39-32.mat']};
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % variables to set
 database = database_extras;
-labels_db = ones(length(database),1).* 1; % C:0 L-I:1 L-M:2 L-A:3
+labels_db = ones(length(database),1).* 2; % C:0 L-I:1 L-M:2 L-A:3
 channel_codes = {'flo'}; % flo caro_exp03
-hemispher_use = {'impar'}; % par: derecho, impar: izquierda
+hemispher_use = {'par'}; % par: derecho, impar: izquierda
 
 set_type = 'train-test'; % train-test trat
 timeRange = [0, 5]*60; %seconds
@@ -147,7 +147,7 @@ for idx_db = 1:length(database)
             dim_pk = dimListFt(:,idx_pk_frac); % Promedio del registro en el tiempo
             dim_pk_alpha = mean(dim_pk(1,:)); % Promedio de los intervalos escogidos
             dim_pk_beta = mean(dim_pk(2,:)); % Promedio de los intervalos escogidos
-            dim_pk_gammaL =mean( dim_pk(3,:)); % Promedio de los intervalos escogidos
+            dim_pk_gammaL = mean( dim_pk(3,:)); % Promedio de los intervalos escogidos
         else
             dim_pk_alpha = 0; % Promedio de los intervalos escogidos
             dim_pk_beta = 0; % Promedio de los intervalos escogidos
@@ -170,6 +170,58 @@ for idx_db = 1:length(database)
         Biomarker(8,m) = dim_gen_alpha;
         Biomarker(9,m) = dim_gen_beta;
         Biomarker(10,m) = dim_gen_gammaL;
+        
+        
+        %{
+        figure('units','normalized','outerposition',[0 0 0.5 0.5])
+        plot(t_Spectrogram_mean(t_pre),osci,'LineWidth',3.0)
+        set(gca,'fontsize',20)
+        %xlabel('Tiempo [s]', 'FontSize', 24); ylabel('Potencia', 'FontSize', 24)
+        title(['Magnitud oscilatoria ',C{ic(i)}], 'FontSize', 24)
+        xlim([0,300]);ylim([0,1000]);
+        
+        figure('units','normalized','outerposition',[0 0 0.5 0.5])
+        plot(t_Spectrogram_mean(t_pre),frac,'LineWidth',3.0)
+        set(gca,'fontsize',20)
+        %xlabel('Tiempo [s]', 'FontSize', 24); ylabel('Potencia', 'FontSize', 24)
+        title(['Magnitud scale-free ',C{ic(i)}], 'FontSize', 24)
+        xlim([0,300]);ylim([0,1000]);
+        
+        figure('units','normalized','outerposition',[0 0 0.5 0.5])
+        plot(t_Spectrogram_mean(t_pre),dim_gen(1,:),'LineWidth',3.0)
+        set(gca,'fontsize',20)
+        %xlabel('Tiempo [s]', 'FontSize', 24); ylabel('Pendiente', 'FontSize', 24)
+        title(['Pendiente scale-free D2 ',C{ic(i)}], 'FontSize', 24)
+        xlim([0,300]);ylim([-3,5]);
+        
+        figure('units','normalized','outerposition',[0 0 0.5 0.5])
+        plot(t_Spectrogram_mean(t_pre),dim_gen(2,:),'LineWidth',3.0)
+        set(gca,'fontsize',20)
+        %xlabel('Tiempo [s]', 'FontSize', 24); ylabel('Pendiente', 'FontSize', 24)
+        title(['Pendiente scale-free D3 ',C{ic(i)}], 'FontSize', 24)
+        xlim([0,300]);ylim([-3,5]);
+        
+        figure('units','normalized','outerposition',[0 0 0.5 0.5])
+        plot(t_Spectrogram_mean(t_pre),dim_gen(3,:),'LineWidth',3.0)
+        set(gca,'fontsize',20)
+        %xlabel('Tiempo [s]', 'FontSize', 24); ylabel('Pendiente', 'FontSize', 24)
+        title(['Pendiente scale-free D4 ',C{ic(i)}], 'FontSize', 24)
+        xlim([0,300]);ylim([-3,5]);
+        
+        %}
+        
+        
+        %{
+        % PSD from Spect
+        n = 400;
+        a = get(gca,'Children');
+        spect = a(5).CData;% + 30;
+        figure('units','normalized','outerposition',[0 0 0.5 0.5])
+        plot(f_Spectrogram_mean, spect(:,n),'LineWidth',3.0)
+        set(gca,'fontsize',20)
+        
+        %}
+        
         
 
     end

@@ -12,7 +12,7 @@ clear; close all
 
 %% Parametros editables por el usuario 
 %% Ruta de la carpeta de los LFP
-path = 'D:\Descargas\Trabajo de titulo\Database\300Hz\charles_2017-06-08_13-09-12\';
+path = 'D:\Descargas\Trabajo de titulo\Database\+2500_300Hz\maravilla_2017-06-17_16-39-32\';
 %path = input('path: \n','s');
 
 %% Intervalos de tiempo del protocolo

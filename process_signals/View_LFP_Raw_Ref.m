@@ -55,7 +55,7 @@ for m = 1:length(ia)
     yticklabels(flip(str_numCH,1))
         
     % Guardar imagen de la figura
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'LFPs',slash_system,C{ic(i)},' LFP en bruto en el tiempo'];
+    name_figure_save = [inicio_foldername,'Images',foldername,'LFPs',slash_system,C{ic(i)},' LFP en bruto en el tiempo'];
     saveas(fig_1,name_figure_save,'png');
     saveas(fig_1,name_figure_save,'fig');
     %waitforbuttonpress;
@@ -72,7 +72,7 @@ for m = 1:length(ia)
         xlabel('Derivative Amplitude [u.a.]'); ylabel('Number of elements');
         title(['(', C{ic(i)}, ') Derivative of the LFP CH',int2str(canales_eval(areas_actuales(q)))])
     end
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'LFPs',slash_system,C{ic(i)},' Histograma de la derivada del LFP estandarizado en el tiempo'];
+    name_figure_save = [inicio_foldername,'Images',foldername,'LFPs',slash_system,C{ic(i)},' Histograma de la derivada del LFP estandarizado en el tiempo'];
     saveas(fig_3,name_figure_save,'png');
     %waitforbuttonpress;
     close(fig_3)

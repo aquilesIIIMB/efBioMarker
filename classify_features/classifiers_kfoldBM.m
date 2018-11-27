@@ -1,8 +1,10 @@
 % kfold classifiers
 
 subjects = {[1:7];[1:4];[1:6]}; % 
-areas = [1,2]; % 
-features = {[4],[1]}; %
+%%{
+areas = [1,2]; % [1,2,3] [1,2]
+features = {[4],[1]}; % [4,5],[2,3],[5] [4,5],[1,2]
+%}
 
 %{
 comb_subj = [1,2,3, 5,6,7, 9,10,11, 13,14,15;...
@@ -47,11 +49,12 @@ accuracy_C = 100*confM_test_total(1,1)/sum(confM_test_total(1,:));
 accuracy_LI = 100*confM_test_total(2,2)/sum(confM_test_total(2,:));
 accuracy_LM = 100*confM_test_total(3,3)/sum(confM_test_total(3,:));
 accuracy_LA = 100*confM_test_total(4,4)/sum(confM_test_total(4,:));
-
+%%{
 disp('Matrix confusion test')
 disp(confM_test_total)
 disp('Accuracy general')
 disp(accuracy_Gen)
+
 disp('Accuracy control')
 disp(accuracy_C)
 disp('Accuracy lesion-inicial')
@@ -60,3 +63,4 @@ disp('Accuracy lesion-media')
 disp(accuracy_LM)
 disp('Accuracy lesion-avanzada')
 disp(accuracy_LA)
+%}
