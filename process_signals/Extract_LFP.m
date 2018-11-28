@@ -53,25 +53,10 @@ registroLFP.times.total_recorded_m = time_max_reg_seg/60.0;
 time_step_m = linspace(0,time_max_reg_seg/60,length(data_downS_filtHigh)); % minutos
 
 % Intervalo de tiempo total del protocolo
-time_step_m_tiempoTotal = time_step_m(time_step_m >= registroLFP.times.extra_time_s/60 & time_step_m <= registroLFP.times.end_m+registroLFP.times.extra_time_s/60) - registroLFP.times.extra_time_s/60;
-registroLFP.times.steps_m = time_step_m_tiempoTotal;
-
-% Eliminar los datos del primer LFP sobre los 960 segundos
-data_elim_maxTime = data_downS_filtHigh((time_step_m >= registroLFP.times.extra_time_s/60 & time_step_m <= registroLFP.times.end_m+registroLFP.times.extra_time_s/60)); % Si se eliminan los primeros segundos, es como si inicial fuese cero, por lo que cambian los limites de las barras de las fases
-
-% Calcular el umbral
-umbral = registroLFP.amp_threshold * median(sort(abs(data_elim_maxTime)))/0.675;
-
-% Eliminacion de artefactos % De aqui se obtiene una sennal sin artefactos, recalcular los limites
-Fc = registroLFP.freq_sin_artifacts;      % hertz Freq: 110Hz
-[~, ind_fueraUmbral] = rmArtifacts_threshold(data_elim_maxTime, umbral, Fc);
-    
+registroLFP.times.steps_m = time_step_m;
+  
 % Almacenamiento de los LFP en la estructura
-% Datos filtrados, downsampleados, acortados y estandarizados con zscore de los datos bajo el umbral 
-%registroLFP.channels(eval_channels(1)).data_raw 
-regLFP.channels(eval_channels(1)).name = registroLFP.channels(eval_channels(1)).name;
-[registroLFP.channels(eval_channels(1)).data_raw, ~, ~, regLFP.channels(eval_channels(1)).ampMax] = zscore_noartifacted(data_elim_maxTime, ind_fueraUmbral); %data_elim_maxTime;
-
+registroLFP.channels(eval_channels(1)).data_raw = data_downS_filtHigh;
 
 tic;
 for i = 2:length(eval_channels) 
@@ -93,21 +78,8 @@ for i = 2:length(eval_channels)
     % Filtro pasa alto despues de downsamplin debido a la baja Fc
     data_downS_filtHigh = filtfilt(Hd_high, data_downS);
 
-    % Eliminar los datos del LFP "i" sobre los 960 segundos
-    data_elim_maxTime = data_downS_filtHigh((time_step_m >= registroLFP.times.extra_time_s/60 & time_step_m <= registroLFP.times.end_m+registroLFP.times.extra_time_s/60)); % Tal vez eliminar los primeros segundos
-    
-    % Calcular el umbral
-    umbral = registroLFP.amp_threshold * median(sort(abs(data_elim_maxTime)))/0.675;
-    
-    [~, ind_fueraUmbral] = rmArtifacts_threshold(data_elim_maxTime, umbral, Fc);
-
-     
-    % Guardar los datos filtrados, downsampleados, acortados y sin artefactos
     % Almacenamiento de los LFP en la estructura
-    % Datos filtrados, downsampleados, acortados y sin artefactos
-    %registroLFP.channels(eval_channels(i)).data_raw     
-    regLFP.channels(eval_channels(i)).name = registroLFP.channels(eval_channels(i)).name;
-    [registroLFP.channels(eval_channels(i)).data_raw, ~, ~, regLFP.channels(eval_channels(i)).ampMax] = zscore_noartifacted(data_elim_maxTime, ind_fueraUmbral); %data_elim_maxTime;
+    registroLFP.channels(eval_channels(i)).data_raw = data_downS_filtHigh;
 
         
 end

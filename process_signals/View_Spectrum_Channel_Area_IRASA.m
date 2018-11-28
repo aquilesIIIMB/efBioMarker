@@ -11,83 +11,20 @@ if ~registroLFP.analysis_stages.spectral_channel
     
 end
 
-if ~registroLFP.analysis_stages.spectral_area
-    fprintf('Visualizacion del espectro de cada canal\n');
+if ~registroLFP.analysis_stages.delete_channel
+    fprintf('Visualizacion del espectro de cada canal en bruto\n');
     
 canales_eval = find(~[registroLFP.channels.removed]);
 slash_system = foldername(length(foldername));
 largo_canales_eval = size(canales_eval,2);
 
-pre_m = registroLFP.times.pre_m;
-on_inicio_m = registroLFP.times.start_on_m;
-on_final_m = registroLFP.times.end_on_m;
-post_m = registroLFP.times.post_m;
-tiempo_total = registroLFP.times.end_m;
-
-azul = [0 0.4470 0.7410];
-rojo = [0.85, 0.325, 0.098];
-verde = [0.466, 0.674, 0.188];
-
 %% Graficos de la respuesta en frecuencia y espectrograma
 for j = 1:largo_canales_eval 
     
     % Cargar los datos que se mostraran
-    Spectrogram = registroLFP.channels(canales_eval(j)).spectrogram.mag;
-    freq = registroLFP.channels(canales_eval(j)).spectrogram.frequency;
-    time = registroLFP.channels(canales_eval(j)).spectrogram.time;
-    
-    Spectral_pre = registroLFP.channels(canales_eval(j)).psd.pre;
-    Spectral_on = registroLFP.channels(canales_eval(j)).psd.on;
-    Spectral_post = registroLFP.channels(canales_eval(j)).psd.post;    
-    
-    %-------------------Plot---Sectral Frequency---------------------------
-    fig_1 = figure('units','normalized','outerposition',[0 0 1 1]);
-    p1 = plot(freq, db(Spectral_pre, 'power'), 'Color', azul,'LineWidth',3);
-    hold on
-    p2 = plot(freq, db(Spectral_on, 'power'),'Color', rojo,'LineWidth',3);
-    hold on
-    p3 = plot(freq, db(Spectral_post, 'power'),'Color', verde,'LineWidth',3);
-    xlim([1 100])
-    lgd = legend([p1 p2 p3], 'pre-stim', 'on-stim', 'post-stim');
-    lgd.FontSize = 20;
-    set(gca,'fontsize',20)
-    xlabel('Frequency [Hz]', 'FontSize', 24); ylabel('Power [dB]', 'FontSize', 24);
-    title(['Power spectral density of LFP ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' de ',registroLFP.channels(canales_eval(j)).name,' PSD del LFP'];
-    saveas(fig_1,name_figure_save,'png');
-    %waitforbuttonpress;
-    close(fig_1)
-    
-    %-------------------Plot---Sectral Frequency in Beta [8-20]Hz---------------------------
-    fig_3 = figure('units','points','position',[0,0,300,600]);
-    quantil_pre = quantile(Spectrogram((time<(pre_m*60.0-30)),:),[.025 .25 .50 .75 .975]);
-    quantil_on = quantile(Spectrogram(time>(on_inicio_m*60.0+30) & time<(on_final_m*60.0-30),:),[.025 .25 .50 .75 .975]);
-    quantil_post = quantile(Spectrogram(time>(post_m*60.0+30) & time<(tiempo_total*60),:),[.025 .25 .50 .75 .975]);
-    plot(freq, db(Spectral_pre, 'power'), 'Color', azul,'LineWidth',3)
-    hold on
-    plot(freq, db(quantil_pre(1,:), 'power'), ':', 'Color', azul,'LineWidth',1.7);
-    hold on
-    plot(freq, db(quantil_pre(5,:), 'power'), ':', 'Color', azul,'LineWidth',1.7);
-    hold on
-    plot(freq, db(Spectral_on, 'power'), 'Color', rojo,'LineWidth',3)
-    hold on
-    plot(freq, db(quantil_on(1,:), 'power'), ':', 'Color', rojo,'LineWidth',1.7);
-    hold on
-    plot(freq, db(quantil_on(5,:), 'power'), ':', 'Color', rojo,'LineWidth',1.7);
-    hold on
-    plot(freq, db(Spectral_post, 'power'), 'Color', verde,'LineWidth',3)
-    hold on
-    plot(freq, db(quantil_post(1,:), 'power'), ':', 'Color', verde,'LineWidth',1.7);
-    hold on
-    plot(freq, db(quantil_post(5,:), 'power'), ':', 'Color', verde,'LineWidth',1.7);
-    xlim([5 25])
-    set(gca,'fontsize',15)
-    xlabel('Frequency [Hz]', 'FontSize', 20); %ylabel('Amplitud (dB)', 'FontSize', 24);
-    title(['Power spectral density in beta ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 12)
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' de ',registroLFP.channels(canales_eval(j)).name,' PSD en beta del LFP'];
-    saveas(fig_3,name_figure_save,'png');
-    %waitforbuttonpress;
-    close(fig_3)
+    Spectrogram = registroLFP.channels(canales_eval(j)).spectrogram_raw.mag;
+    freq = registroLFP.channels(canales_eval(j)).spectrogram_raw.frequency;
+    time = registroLFP.channels(canales_eval(j)).spectrogram_raw.time;    
 
     %-------------------Plot---Spectrogram------------------------------------
     fig_5 = figure('units','normalized','outerposition',[0 0 1 1]);
@@ -99,16 +36,49 @@ for j = 1:largo_canales_eval
     set(gca,'fontsize',20)
     ylim([1 100])
     c=colorbar('southoutside');
-    caxis([0, 0.15]); %[0, 30] [-10, 10] [-20, 15] [-15, 20]
+    caxis([0, 25]);
     hold on
-    line([pre_m*60.0 pre_m*60.0], get(gca, 'ylim'),'Color','black','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_inicio_m*60.0 on_inicio_m*60.0], get(gca, 'ylim'),'Color','black','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_final_m*60.0 on_final_m*60.0], get(gca, 'ylim'),'Color','black','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([post_m*60.0 post_m*60.0], get(gca, 'ylim'),'Color','black','LineWidth',3.5,'Marker','.','LineStyle','-');
-    title(['Spectrogram multitaper of LFP ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
+    title(['Spectrogram multitaper of LFP raw ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
     ylabel(c,'Power [dB]', 'FontSize', 17)
     set(c,'fontsize',17)
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' Espectrograma Multitaper del LFP de ',registroLFP.channels(canales_eval(j)).name];
+    name_figure_save = [inicio_foldername,'Images',foldername,'Spectrograms',slash_system,'Raw',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' Espectrograma Multitaper del LFP raw de ',registroLFP.channels(canales_eval(j)).name];
+    saveas(fig_5,name_figure_save,'png');
+    %waitforbuttonpress;
+    close(fig_5)
+
+end
+
+elseif registroLFP.analysis_stages.spectral_channel && ~registroLFP.analysis_stages.spectral_area
+    fprintf('Visualizacion del espectro de cada canal referenciado\n');
+    
+canales_eval = find(~[registroLFP.channels.removed]);
+slash_system = foldername(length(foldername));
+largo_canales_eval = size(canales_eval,2);
+
+%% Graficos de la respuesta en frecuencia y espectrograma
+for j = 1:largo_canales_eval 
+    
+    % Cargar los datos que se mostraran
+    Spectrogram = registroLFP.channels(canales_eval(j)).spectrogram_ref.mag;
+    freq = registroLFP.channels(canales_eval(j)).spectrogram_ref.frequency;
+    time = registroLFP.channels(canales_eval(j)).spectrogram_ref.time;    
+
+    %-------------------Plot---Spectrogram------------------------------------
+    fig_5 = figure('units','normalized','outerposition',[0 0 1 1]);
+    clim=prctile(reshape(db(Spectrogram'+1,'power'),1,numel(Spectrogram)),[5 99]);
+    imagesc(time,freq,db(Spectrogram'+1,'power'),clim); colormap(parula(80));
+    axis xy
+    ylabel('Frequency [Hz]', 'FontSize', 24)
+    xlabel('Time [s]', 'FontSize', 24)
+    set(gca,'fontsize',20)
+    ylim([1 100])
+    c=colorbar('southoutside');
+    caxis([0, 25]);
+    hold on
+    title(['Spectrogram multitaper of LFP ref ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
+    ylabel(c,'Power [dB]', 'FontSize', 17)
+    set(c,'fontsize',17)
+    name_figure_save = [inicio_foldername,'Images',foldername,'Spectrograms',slash_system,'Ref',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' Espectrograma Multitaper del LFP ref de ',registroLFP.channels(canales_eval(j)).name];
     saveas(fig_5,name_figure_save,'png');
     %waitforbuttonpress;
     close(fig_5)
