@@ -11,7 +11,7 @@ clear registroLFP % Se elimina el registro cargado en el workspace
 % Tipo de referenciacion
 reference_type = 'area'; % 'none', 'general', 'area'
 % Amplitud del umbral para remover artefactos
-threshold_amplitudes = 12; % 
+threshold_amplitudes = 14; % 
 
 % Verificacion de los Parametros
 fprintf('\n***Evaluation of parameters *** \n');
@@ -150,7 +150,7 @@ registroLFP.multitaper_param.spectrogram.movingwin.window = 2; % Ventanas (En se
 registroLFP.multitaper_param.spectrogram.movingwin.winstep = registroLFP.multitaper_param.spectrogram.movingwin.window/2; % Pasos de ventanas (segundos)
 
 % Identificadores de las etapas que se han hecho y las que quedan
-registroLFP.analysis_stages.initialization = 1;
+registroLFP.analysis_stages.initialization = 0;
 registroLFP.analysis_stages.extract_lfp = 0;
 registroLFP.analysis_stages.spectral_channel_raw = 0;
 registroLFP.analysis_stages.delete_channel = 0;
@@ -237,6 +237,8 @@ if exist(strcat(path, dir_pulse.name),'file') && ~isempty(dir_pulse)
     saveas(fig,name_figure_save,'fig');
     close(fig)
 end
+
+registroLFP.analysis_stages.initialization = 1;
 
 % Eliminacion de variables que no se guardaran
 clearvars -except registroLFP path name_registro foldername inicio_foldername eval_channels

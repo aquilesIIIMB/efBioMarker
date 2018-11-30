@@ -28,7 +28,7 @@ for j = 1:largo_canales_eval
 
     %-------------------Plot---Spectrogram------------------------------------
     fig_5 = figure('units','normalized','outerposition',[0 0 1 1]);
-    clim=prctile(reshape(db(Spectrogram'+1,'power'),1,numel(Spectrogram)),[5 99]);
+    clim=prctile(reshape(db(Spectrogram'+1,'power'),1,numel(db(Spectrogram'+1,'power'))),[5 99]);
     imagesc(time,freq,db(Spectrogram'+1,'power'),clim); colormap(parula(80));
     axis xy
     ylabel('Frequency [Hz]', 'FontSize', 24)
@@ -38,17 +38,17 @@ for j = 1:largo_canales_eval
     c=colorbar('southoutside');
     caxis([0, 25]);
     hold on
-    title(['Spectrogram multitaper of LFP raw ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
+    title(['Spectrogram of raw LFP ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
     ylabel(c,'Power [dB]', 'FontSize', 17)
     set(c,'fontsize',17)
-    name_figure_save = [inicio_foldername,'Images',foldername,'Spectrograms',slash_system,'Raw',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' Espectrograma Multitaper del LFP raw de ',registroLFP.channels(canales_eval(j)).name];
+    name_figure_save = [inicio_foldername,'Images',foldername,'Spectrograms',slash_system,'Raw',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' Spectrogram of raw LFP of ',registroLFP.channels(canales_eval(j)).name];
     saveas(fig_5,name_figure_save,'png');
-    %waitforbuttonpress;
+    %saveas(fig_5,name_figure_save,'fig');
     close(fig_5)
 
 end
 
-elseif registroLFP.analysis_stages.spectral_channel && ~registroLFP.analysis_stages.spectral_area
+elseif registroLFP.analysis_stages.spectral_channel_ref && ~registroLFP.analysis_stages.spectral_area
     fprintf('Visualizacion del espectro de cada canal referenciado\n');
     
 canales_eval = find(~[registroLFP.channels.removed]);
@@ -65,7 +65,7 @@ for j = 1:largo_canales_eval
 
     %-------------------Plot---Spectrogram------------------------------------
     fig_5 = figure('units','normalized','outerposition',[0 0 1 1]);
-    clim=prctile(reshape(db(Spectrogram'+1,'power'),1,numel(Spectrogram)),[5 99]);
+    clim=prctile(reshape(db(Spectrogram'+1,'power'),1,numel(Spectrogram+1)),[5 99]);
     imagesc(time,freq,db(Spectrogram'+1,'power'),clim); colormap(parula(80));
     axis xy
     ylabel('Frequency [Hz]', 'FontSize', 24)
@@ -75,15 +75,17 @@ for j = 1:largo_canales_eval
     c=colorbar('southoutside');
     caxis([0, 25]);
     hold on
-    title(['Spectrogram multitaper of LFP ref ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
+    title(['Spectrogram of referenced LFP ',registroLFP.channels(canales_eval(j)).name,' (',registroLFP.channels(canales_eval(j)).area, ')'], 'FontSize', 24)
     ylabel(c,'Power [dB]', 'FontSize', 17)
     set(c,'fontsize',17)
-    name_figure_save = [inicio_foldername,'Images',foldername,'Spectrograms',slash_system,'Ref',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' Espectrograma Multitaper del LFP ref de ',registroLFP.channels(canales_eval(j)).name];
+    name_figure_save = [inicio_foldername,'Images',foldername,'Spectrograms',slash_system,'Ref',slash_system,'Area ',registroLFP.channels(canales_eval(j)).area,' Spectrogram of referenced LFP of ',registroLFP.channels(canales_eval(j)).name];
     saveas(fig_5,name_figure_save,'png');
-    %waitforbuttonpress;
+    %saveas(fig_5,name_figure_save,'fig');
     close(fig_5)
 
 end
+
+registroLFP.analysis_stages.view_spectrum_ch = 1;
 
 else
     fprintf('Visualizacion del espectro por area\n');
@@ -112,8 +114,8 @@ for m = 1:length(ia)
     % Mixto
     %-------------------Plot---Mean Spectrogram------------------------------------
     fig_28 = figure('units','normalized','outerposition',[0 0 1 1]);
-    clim=prctile(reshape(Spectrogram_mixed',1,numel(Spectrogram_mixed)),[5 99]);
-    imagesc(time,freq,Spectrogram_mixed',clim); 
+    clim=prctile(reshape(db(Spectrogram_mixed'+1,'power'),1,numel(Spectrogram_mixed+1)),[5 99]);
+    imagesc(time,freq,db(Spectrogram_mixed'+1,'power'),clim); 
     cmap = colormap(parula(80));
     axis xy
     ylabel('Frequency [Hz]', 'FontSize', 24)
@@ -124,25 +126,19 @@ for m = 1:length(ia)
     c=colorbar('southoutside');
     caxis([0 70])
     hold on
-    line([pre_m*60.0 pre_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_inicio_m*60.0 on_inicio_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_final_m*60.0 on_final_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([post_m*60.0 post_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
     title(['Mixed activity spectrogram of LFPs in area ',C{ic(i)}], 'FontSize', 24)
-    ylabel(c,'Power [W/Hz]', 'FontSize', 17)
+    ylabel(c,'Power [uW/Hz]', 'FontSize', 17)
     set(c,'fontsize',17)
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Promedio ',C{ic(i)},' Espectrograma de Mixto de los LFP '];
-    %name_figure_save = ['/home/cmanalisis/Aquiles/Fractales Biomarcador/Imagenes Tesis',slash_system,'Promedio ',C{ic(i)},' Espectrograma de Mixto de los LFP '];
+    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Area',slash_system,'Promedio ',C{ic(i)},' Espectrograma de Mixto de los LFP '];
     saveas(fig_28,name_figure_save,'png');
     saveas(fig_28,name_figure_save,'fig');
-    %waitforbuttonpress;
     close(fig_28)
     
     % Osci
     %-------------------Plot---Mean Spectrogram------------------------------------
     fig_10 = figure('units','normalized','outerposition',[0 0 1 1]);
-    clim=prctile(reshape(Spectrogram_oscillations',1,numel(Spectrogram_oscillations)),[5 99]);
-    imagesc(time,freq,Spectrogram_oscillations',clim); 
+    clim=prctile(reshape(db(Spectrogram_oscillations'+1,'power'),1,numel(Spectrogram_oscillations)),[5 99]);
+    imagesc(time,freq,db(Spectrogram_oscillations'+1,'power'),clim); 
     cmap = colormap(parula(80));
     axis xy
     ylabel('Frequency [Hz]', 'FontSize', 24)
@@ -153,18 +149,12 @@ for m = 1:length(ia)
     c=colorbar('southoutside');
     caxis([0 70])
     hold on
-    line([pre_m*60.0 pre_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_inicio_m*60.0 on_inicio_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_final_m*60.0 on_final_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([post_m*60.0 post_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
     title(['Oscillation spectrogram of LFPs in area ',C{ic(i)}], 'FontSize', 24)
     ylabel(c,'Power [W/Hz]', 'FontSize', 17)
     set(c,'fontsize',17)
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Promedio ',C{ic(i)},' Espectrograma de Oscilaciones de los LFP '];
-    %name_figure_save = ['/home/cmanalisis/Aquiles/Fractales Biomarcador/Imagenes Tesis',slash_system,'Promedio ',C{ic(i)},' Espectrograma de Oscilaciones de los LFP '];
+    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Area',slash_system,'Promedio ',C{ic(i)},' Espectrograma de Oscilaciones de los LFP '];
     saveas(fig_10,name_figure_save,'png');
     saveas(fig_10,name_figure_save,'fig');
-    %waitforbuttonpress;
     close(fig_10)
     
     % Scale free o fractal
@@ -182,25 +172,19 @@ for m = 1:length(ia)
     c=colorbar('southoutside');
     caxis([0 70])
     hold on
-    line([pre_m*60.0 pre_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_inicio_m*60.0 on_inicio_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([on_final_m*60.0 on_final_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
-    line([post_m*60.0 post_m*60.0], get(gca, 'ylim'),'Color','white','LineWidth',3.5,'Marker','.','LineStyle','-');
     title(['Scale-free activity spectrogram of LFPs in area ',C{ic(i)}], 'FontSize', 24)
     ylabel(c,'Power [W/Hz]', 'FontSize', 17)
     set(c,'fontsize',17)
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Promedio ',C{ic(i)},' Espectrograma Arrhythmic activity de los LFP '];
-    %name_figure_save = ['/home/cmanalisis/Aquiles/Fractales Biomarcador/Imagenes Tesis',slash_system,'Promedio ',C{ic(i)},' Espectrograma Arrhythmic activity de los LFP '];
+    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'Spectrograms',slash_system,'Area',slash_system,'Promedio ',C{ic(i)},' Espectrograma Arrhythmic activity de los LFP '];
     saveas(fig_18,name_figure_save,'png');
     saveas(fig_18,name_figure_save,'fig');
-    %waitforbuttonpress;
     close(fig_18)
-
-end
     
 end
 
-registroLFP.analysis_stages.view_spectrum = 1;
+registroLFP.analysis_stages.view_spectrum_area = 1; 
+    
+end
 
 % Eliminacion de variables que no se van a guardar
 clearvars -except registroLFP regLFP path name_registro foldername inicio_foldername

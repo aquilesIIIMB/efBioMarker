@@ -114,12 +114,12 @@ for m = 1:length(ia)
     set(gca,'fontsize',20)
     xlim([0 registroLFP.times.steps_m(end)]);ylim([-(delta*largo_areasActuales)+min(registroLFP.channels(canales_eval(areas_actuales(largo_areasActuales))).data_raw)  -delta+max(registroLFP.channels(canales_eval(areas_actuales(1))).data_raw)])
     xlabel('Time [min]', 'FontSize', 24); ylabel('Channels', 'FontSize', 24)
-    title(['(', C{ic(i)},') referenced LFP'], 'FontSize', 24)
+    title(['(', C{ic(i)},') LFP referenced without artifacts'], 'FontSize', 24)
     yticks(flip(1:size(str_num,1))*-delta)
     yticklabels(flip(str_num,1))
         
     % Guardar imagen de la figura
-    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'LFPs',slash_system,'Ref',slash_system,C{ic(i)},' referenced LFP at time'];
+    name_figure_save = [inicio_foldername,'Images',foldername,slash_system,'LFPs',slash_system,'Ref',slash_system,C{ic(i)},' LFP ref en el tiempo sin artefactos '];
     saveas(fig_1,name_figure_save,'png');
     %saveas(fig_1,name_figure_save,'fig');
     close(fig_1)

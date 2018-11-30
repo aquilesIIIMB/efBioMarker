@@ -23,8 +23,10 @@ for m = 7%1:length(ia)
     idx_artifacts_signal_area = [registroLFP.channels(canales_eval(areas_actuales)).idx_artifacts];
     time = registroLFP.channels(canales_eval(areas_actuales(1))).spectrogram_ref.time;
     freqs = registroLFP.channels(canales_eval(areas_actuales(1))).spectrogram_ref.frequency;
+    
+    % Pasar de muestreo de LFP al del espectrgrama 
     idx_artifacts_spect_total = resampletoSpect(~idx_artifacts_signal_area, length(time));
-    idx_artifacts_spect_area = min(idx_artifacts_spect_total,[],2);
+    idx_artifacts_spect_area = min(idx_artifacts_spect_total,[],2); %  si dentro de una ventana hay un artefacto, la ventana se designa como artefacto
 
     if largo_area_actual > 1  
         data_spect_area = 0;
@@ -55,8 +57,9 @@ for m = 7%1:length(ia)
         try 
             fooof_results = fooof(freqs, data_spect_area(j,:), f_range, settings,1);
         catch
-            % Se usa el anterior
-            fooof_results; % Falla si el primer bin es un artefacto
+            % Se coloca como artefacto
+            fooof_results.fooofed_spectrum = zeros(size(data_spect_area(j,:))); % Falla si el primer bin es un artefacto
+            fooof_results.bg_fit = zeros(size(data_spect_area(j,:)));
         end
         
         mixed(j,:) = fooof_results.fooofed_spectrum;
@@ -97,3 +100,5 @@ path_name_registro = [inicio_foldername,'Images',foldername,name_registro];
 save(path_name_registro,'-v7.3')
 
 disp(['It was saved in: ',path_name_registro])
+disp('Signal processing is ready!!! :D')
+

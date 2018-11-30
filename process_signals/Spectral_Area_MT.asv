@@ -56,7 +56,7 @@ for m = 7%1:length(ia)
             fooof_results = fooof(freqs, data_spect_area(j,:), f_range, settings,1);
         catch
             % Se usa el anterior
-            fooof_results; % Falla si el primer bin es un artefacto
+            fooof_results.fooofed_spectrum = zeros(); % Falla si el primer bin es un artefacto
         end
         
         mixed(j,:) = fooof_results.fooofed_spectrum;
@@ -87,4 +87,13 @@ end
 
 registroLFP.analysis_stages.spectral_area = 1;
 
+% Eliminacion de variables que no se van a guardar
+clearvars -except registroLFP regLFP path name_registro foldername inicio_foldername
 
+% Guardar matrices en .mat
+path_name_registro = [inicio_foldername,'Images',foldername,name_registro];
+
+% Descomentar para guardar
+save(path_name_registro,'-v7.3')
+
+disp(['It was saved in: ',path_name_registro])
