@@ -1,13 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% Spectral_Channel.m
+% Spectral_Channel_Raw.m
 fprintf('\nAnalisis Espectral por Canal\n')
 %
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-if ~registroLFP.analysis_stages.view_lfp 
-    error('Falta el bloque de visualizacion');
+if ~registroLFP.analysis_stages.extract_lfp 
+    error('Falta el bloque de extraccion de LFP');
     
 end
 
@@ -29,6 +29,8 @@ for i = 1:largo_canales_eval
     registroLFP.channels(canales_eval(i)).spectrogram_raw.frequency = f_Spectrogram;
     
 end
+
+registroLFP.analysis_stages.spectral_channel_raw = 1;
 
 % Eliminacion de variables que no se van a guardar
 clearvars -except registroLFP regLFP path name_registro foldername inicio_foldername

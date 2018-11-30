@@ -1,52 +1,90 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Spectral_Area_MT.m
+fprintf('\nAnalisis Espectral por Area\n')
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if ~registroLFP.analysis_stages.spectral_channel_ref 
+    error('Falta el bloque de analisis espectral para cada canal referenciado');
+    
+end
 
 canales_eval = find(~[registroLFP.channels.removed]);
 [C,ia,ic] = unique({registroLFP.channels(canales_eval).area},'stable');
 
-for m = 1:length(ia) 
+for m = 7%1:length(ia) 
     i = ia(m);
 
     areas_actuales = find(ic == ic(i));
 
     largo_area_actual = length(areas_actuales);
-    data_artifacted_area = [registroLFP.channels(canales_eval(areas_actuales)).spectrogram_ref.mag];
-    idx_artifacts_area = [registroLFP.channels(canales_eval(areas_actuales)).idx_artifacts];
+    idx_artifacts_signal_area = [registroLFP.channels(canales_eval(areas_actuales)).idx_artifacts];
+    time = registroLFP.channels(canales_eval(areas_actuales(1))).spectrogram_ref.time;
+    freqs = registroLFP.channels(canales_eval(areas_actuales(1))).spectrogram_ref.frequency;
+    idx_artifacts_spect_total = resampletoSpect(~idx_artifacts_signal_area, length(time));
+    idx_artifacts_spect_area = min(idx_artifacts_spect_total,[],2);
 
-    if largo_area_actual > 1 ! Ver que ninguna ventana tenga valor cero !!! es en el espectro, no en la señal        
-        average_spect_area = sum(data_artifacted_area.*~idx_artifacts_area,2) ./ sum(~idx_artifacts_area,2);
+    if largo_area_actual > 1  
+        data_spect_area = 0;
+        for j = 1:largo_area_actual 
+            idx_artifact_actual = idx_artifacts_spect_total(:,j);
+            data_sepct_actual = registroLFP.channels(canales_eval(areas_actuales(j))).spectrogram_ref.mag;
+            data_spect_area = data_spect_area + data_sepct_actual.*repmat(idx_artifact_actual,1,size(data_sepct_actual,2));
+
+        end
+
+        data_spect_area(logical(idx_artifacts_spect_area),:) = data_spect_area(logical(idx_artifacts_spect_area),:) ./ sum(idx_artifacts_spect_total(logical(idx_artifacts_spect_area),:),2); % div 0
     else
-        average_spect_area = 0;
+        data_spect_area = registroLFP.channels(canales_eval(areas_actuales)).spectrogram_ref.mag;
     end
 
-    for j = 1:largo_area_actual 
-        data_ref_artifacted = average_spect_area;
+    mixed = data_spect_area.*0;
+    scale_free = data_spect_area.*0;
+    
+    % FOOOF settings
+    settings = struct();  % Use defaults
+    f_range = [1, 100]; 
+    
+    fooof_results = [];
+        
+    for j = 1: length(time)
 
-        % Realizar el sacado de artefactos aca y por etapa;
-        umbral = registroLFP.amp_threshold * median(sort(abs(data_ref_artifacted)))/0.675;
-
-        % Eliminacion de artefactos % De aqui se obtiene una sennal sin artefactos, recalcular los limites
-        Fc = registroLFP.freq_sin_artifacts;      % hertz Freq: 110Hz
-        [~, ind_fueraUmbral] = rmArtifacts_threshold(data_ref_artifacted, umbral, Fc);
-
-        % Almacenar los indices de los valores sobre el umbral
-        registroLFP.areas(m).idx_artifacts = ind_fueraUmbral; 
-
-        registroLFP.channels(canales_eval(areas_actuales(j))).data_ref = data_ref_artifacted;             
+        % Run FOOOF
+        try 
+            fooof_results = fooof(freqs, data_spect_area(j,:), f_range, settings,1);
+        catch
+            % Se usa el anterior
+            fooof_results; % Falla si el primer bin es un artefacto
+        end
+        
+        mixed(j,:) = fooof_results.fooofed_spectrum;
+        scale_free(j,:) = fooof_results.bg_fit;
+        
     end
     
+    mixed = 10.^mixed;
+    scale_free = 10.^scale_free;
+    osci = mixed - scale_free;
     
-
+    disp(C{m})
+    
     %Nombre del area
     registroLFP.areas(m).name = C{m};
 
     % Datos estandarizados con zscore de los datos bajo el umbral 
-    registroLFP.areas(m).spectrogram.mixed.mag = average_spect_area;
+    registroLFP.areas(m).spectrogram.mixed.mag = mixed;
+    registroLFP.areas(m).spectrogram.oscillations.mag = osci;
+    registroLFP.areas(m).spectrogram.fractals.mag = scale_free;
 
     % Almacenar los indices de los valores sobre el umbral
-    registroLFP.areas(m).ind_over_threshold = ind_fueraUmbral;  
+    registroLFP.areas(m).idx_artifacts = idx_artifacts_spect_area;
+    registroLFP.areas(m).spectrogram.frequency = registroLFP.channels(canales_eval(areas_actuales(1))).spectrogram_ref.frequency;
+    registroLFP.areas(m).spectrogram.time = registroLFP.channels(canales_eval(areas_actuales(1))).spectrogram_ref.time;
 
 end
 
-
-
+registroLFP.analysis_stages.spectral_area = 1;
 
 

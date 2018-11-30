@@ -1,13 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% Spectral_Channel.m
+% Spectral_Channel_Ref.m
 fprintf('\nAnalisis Espectral por Canal\n')
 %
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-if ~registroLFP.analysis_stages.view_lfp 
-    error('Falta el bloque de visualizacion');
+if ~registroLFP.analysis_stages.referencing 
+    error('Falta el bloque de referenciacion');
     
 end
 
@@ -30,7 +30,7 @@ for i = 1:largo_canales_eval
     
 end
 
-registroLFP.analysis_stages.spectral_channel = 1;
+registroLFP.analysis_stages.spectral_channel_ref = 1;
 
 % Eliminacion de variables que no se van a guardar
 clearvars -except registroLFP regLFP path name_registro foldername inicio_foldername

@@ -146,7 +146,7 @@ registroLFP.multitaper_param.spectrogram.params.err = 0; % Error considerado
 registroLFP.multitaper_param.spectrogram.params.trialave = 0; % Se calcula el promedio de todos los canales o intentos dentro del archivo de entrada
 
 % Datos para definir el ventaneo y avance de las ventanas en multitaper
-registroLFP.multitaper_param.spectrogram.movingwin.window = 2; % Ventanas (En segundos)
+registroLFP.multitaper_param.spectrogram.movingwin.window = 1; % Ventanas (En segundos)
 registroLFP.multitaper_param.spectrogram.movingwin.winstep = registroLFP.multitaper_param.spectrogram.movingwin.window/2; % Pasos de ventanas (segundos)
 
 % Identificadores de las etapas que se han hecho y las que quedan
@@ -213,7 +213,7 @@ if ~exist(foldername, 'dir')
     mkdir([inicio_foldername,'Images', foldername,'LFPs'],'Ref');
     mkdir([inicio_foldername,'Images', foldername,'Spectrograms'],'Raw');
     mkdir([inicio_foldername,'Images', foldername,'Spectrograms'],'Ref');
-    mkdir([inicio_foldername,'Images', foldername,'Spectrograms'],'Area');
+    mkdir([inicio_foldername,'Images', foldername,'Spectrograms'],'Ref');
     mkdir([inicio_foldername,'Images', foldername],'SpectralVar');
 end
 

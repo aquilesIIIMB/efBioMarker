@@ -58,22 +58,26 @@ Initialization;
 
 Extract_LFP;
 
-View_LFP_Raw_Ref;
-
 Spectral_Channel_Raw_MT;
 
-View_Spectrum_Channel_Area_IRASA; % MT para channels e IRASA para areas
+View_LFP_Raw_Ref;
+
+View_Spectrum_Channel_Area; 
 
 % Etapa de eliminacion de ch y lfp promedios
 Delete_CH;
 
 Referencing;
 
+Spectral_Channel_Ref_MT;
+
 View_LFP_Raw_Ref;
 
-Spectral_Area_IRASA;
+View_Spectrum_Channel_Area; 
 
-View_Spectrum_Channel_Area_IRASA; % MT para channels e IRASA para areas
+Spectral_Area_MT;
+
+View_Spectrum_Channel_Area; % MT para channels e IRASA para areas
 toc;
 
 sonido_alarma;

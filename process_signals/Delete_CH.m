@@ -8,8 +8,8 @@ fprintf('\nEliminacionCH\n')
 % Eliminar los canales no validos y volver a calcular
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-if ~registroLFP.analysis_stages.view_spectrum 
-    error('Falta el bloque de visualizacion de LFP');
+if ~registroLFP.analysis_stages.spectral_channel_raw 
+    error('Falta el bloque de analisis espectral para cada canal en bruto');
 
 end
 

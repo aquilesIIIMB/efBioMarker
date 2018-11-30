@@ -28,7 +28,7 @@
 %     provided as set to default values. To run with all defaults,
 %     input settings as an empty struct.
 
-function fooof_results = fooof_group(freqs, psds, f_range, settings)
+function fooof_results = fooof_group(freqs, psds, f_range, settings, return_model)
 
     % Check settings - get defaults for those not provided
     settings = fooof_check_settings(settings);
@@ -40,7 +40,7 @@ function fooof_results = fooof_group(freqs, psds, f_range, settings)
     for psd = psds
         % changes
         try
-            cur_results = fooof(freqs, psd', f_range, settings);
+            cur_results = fooof(freqs, psd', f_range, settings, return_model);
         catch
             cur_results = fooof_results(end);
         end
