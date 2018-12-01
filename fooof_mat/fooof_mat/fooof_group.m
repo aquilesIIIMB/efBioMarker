@@ -28,7 +28,7 @@
 %     provided as set to default values. To run with all defaults,
 %     input settings as an empty struct.
 
-function fooof_results = fooof_group(freqs, psds, f_range, settings, return_model)
+function fooof_results = fooof_group(freqs, psds, f_range, settings)
 
     % Check settings - get defaults for those not provided
     settings = fooof_check_settings(settings);
@@ -38,12 +38,7 @@ function fooof_results = fooof_group(freqs, psds, f_range, settings, return_mode
 
     % Run FOOOF across the group of power spectra
     for psd = psds
-        % changes
-        try
-            cur_results = fooof(freqs, psd', f_range, settings, return_model);
-        catch
-            cur_results = fooof_results(end);
-        end
+        cur_results = fooof(freqs, psd', f_range, settings);
         fooof_results = [fooof_results, cur_results];
     end
 

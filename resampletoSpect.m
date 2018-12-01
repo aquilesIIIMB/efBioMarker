@@ -3,15 +3,15 @@ function y = resampletoSpect(a, len_y)
 
 [row, col] = size(a);
 y = zeros(len_y, col);
-delta = round(row/len_y);
+delta = row/len_y;
 
    
 for j = 1:len_y
 
-    y(j,:) = min(a((j-1)*delta+1 : (j)*delta+1,:));
+    y(j,:) = min(a(round((j-1)*delta)+1 : round(j*delta),:));
 
-    %disp((j-1)*delta+1)
-    %disp((j)*delta+1)
+    %disp(round((j-1)*delta)+1)
+    %disp(round(j*delta))
 
 
 

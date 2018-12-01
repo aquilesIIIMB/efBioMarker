@@ -26,7 +26,7 @@ for m = 7%1:length(ia)
     
     % Pasar de muestreo de LFP al del espectrgrama 
     idx_artifacts_spect_total = resampletoSpect(~idx_artifacts_signal_area, length(time));
-    idx_artifacts_spect_area = min(idx_artifacts_spect_total,[],2); %  si dentro de una ventana hay un artefacto, la ventana se designa como artefacto
+    idx_artifacts_spect_area = max(idx_artifacts_spect_total,[],2); % Detectar los que son columnas de cero 
 
     if largo_area_actual > 1  
         data_spect_area = 0;
@@ -41,17 +41,15 @@ for m = 7%1:length(ia)
     else
         data_spect_area = registroLFP.channels(canales_eval(areas_actuales)).spectrogram_ref.mag;
     end
-
+    
     mixed = data_spect_area.*0;
     scale_free = data_spect_area.*0;
     
     % FOOOF settings
     settings = struct();  % Use defaults
     f_range = [1, 100]; 
-    
-    fooof_results = [];
-        
-    for j = 1: length(time)
+            
+    for j = 1:100% length(time)
 
         % Run FOOOF
         try 
@@ -92,7 +90,7 @@ registroLFP.analysis_stages.spectral_area = 1;
 
 % Eliminacion de variables que no se van a guardar
 clearvars -except registroLFP regLFP path name_registro foldername inicio_foldername
-
+%{
 % Guardar matrices en .mat
 path_name_registro = [inicio_foldername,'Images',foldername,name_registro];
 
@@ -101,4 +99,4 @@ save(path_name_registro,'-v7.3')
 
 disp(['It was saved in: ',path_name_registro])
 disp('Signal processing is ready!!! :D')
-
+%}

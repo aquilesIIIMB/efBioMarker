@@ -138,7 +138,7 @@ registroLFP.times.total_recorded_m = []; % tiempo de duracion del registro
 registroLFP.times.steps_m = [];
 
 % Datos de los parametros usados para calcular los multitapers (Chronux)
-registroLFP.multitaper_param.spectrogram.params.tapers = ([2 3]); % [TW K], (K <= to 2TW-1)
+registroLFP.multitaper_param.spectrogram.params.tapers = ([3 5]); % [TW K], (K <= to 2TW-1)
 registroLFP.multitaper_param.spectrogram.params.pad = 2; % Cantidad de puntos multiplos de dos sobre el largo de la sennal
 registroLFP.multitaper_param.spectrogram.params.Fs = registroLFP.desired_fs; % Frecuencia de muestreo
 registroLFP.multitaper_param.spectrogram.params.fpass = [1 100]; % Rango de frecuencias
