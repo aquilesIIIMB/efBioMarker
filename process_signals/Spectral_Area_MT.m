@@ -14,7 +14,7 @@ end
 canales_eval = find(~[registroLFP.channels.removed]);
 [C,ia,ic] = unique({registroLFP.channels(canales_eval).area},'stable');
 
-for m = 7%1:length(ia) 
+for m = 1:length(ia) 
     i = ia(m);
 
     areas_actuales = find(ic == ic(i));
@@ -49,7 +49,7 @@ for m = 7%1:length(ia)
     settings = struct();  % Use defaults
     f_range = [1, 100]; 
             
-    for j = 1:100% length(time)
+    parfor j = 1:length(time)
 
         % Run FOOOF
         try 
@@ -90,7 +90,7 @@ registroLFP.analysis_stages.spectral_area = 1;
 
 % Eliminacion de variables que no se van a guardar
 clearvars -except registroLFP regLFP path name_registro foldername inicio_foldername
-%{
+
 % Guardar matrices en .mat
 path_name_registro = [inicio_foldername,'Images',foldername,name_registro];
 
@@ -99,4 +99,4 @@ save(path_name_registro,'-v7.3')
 
 disp(['It was saved in: ',path_name_registro])
 disp('Signal processing is ready!!! :D')
-%}
+

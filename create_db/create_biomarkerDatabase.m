@@ -339,3 +339,33 @@ path_name_registro = [main_path,main_path(1),'biomarkerDB'];
 save(path_name_registro,'-v7.3')
 
 disp(['It was saved in: ',path_name_registro])
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+main_path = '/home/controlmotor/Aquiles/Fractales Biomarcador/Database/';
+
+param_ext(1).rec = {main_path};
+param_ext(1).seg = {[0,5]};
+param_ext(1).dbType = {'bm'};
+param_ext(1).hem = {'L'};
+param_ext(1).area = {{'M1','STR','VPL'}};
+
+param_ext(2).rec = {main_path};
+param_ext(2).seg = {[1,6], [7,12]};
+param_ext(2).dbType = {'bm','trat'};
+param_ext(2).hem = {'L', 'R'};
+param_ext(2).area = {{'M1','STR','VPL'}, {'M1','STR'}};
+
+
+for idx_rec = 1:length(param_ext)
+    %disp(param_ext(idx_rec).rec)
+    load(param_ext(idx_rec).rec)
+    for idx_seg = 1:length(param_ext(idx_rec).seg)
+        disp(param_ext(idx_rec).seg{idx_seg})
+        disp(param_ext(idx_rec).dbType(idx_seg))
+        disp(param_ext(idx_rec).hem(idx_seg))
+        disp(param_ext(idx_rec).area{idx_seg})
+    end
+    disp('Next Rec')
+end
+

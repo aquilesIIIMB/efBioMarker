@@ -104,10 +104,10 @@ for m = 1:length(ia)
     Spectrogram_oscillations = registroLFP.areas(m).spectrogram.oscillations.mag;
     Spectrogram_fractals = registroLFP.areas(m).spectrogram.fractals.mag;
     %beta_Spectrogram_mean = registroLFP.average_spectrum(m).spectrogram.beta; 
-    
+  
     idx_spect_artifacts = registroLFP.areas(m).idx_artifacts;
     freq = registroLFP.areas(m).spectrogram.frequency;
-    time = registroLFP.areas(m).spectrogram.time;  
+    time = registroLFP.areas(m).spectrogram.time;    
 
     %% Grafico del promedio de todos los canales   
     

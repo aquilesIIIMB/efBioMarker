@@ -1,0 +1,82 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% main_creating.m
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear; close all
+
+param_ext(1).rec = {'D:\Descargas\Trabajo de titulo\Images\+2500_300Hz\maravilla_2017-06-17_16-39-32\maravilla_2017-06-17_16-39-32.mat'};
+param_ext(1).seg = {[1,6]};
+param_ext(1).dbType = {'bm'}; % bm o trat
+param_ext(1).hem = {'R'}; % L, R o LR
+param_ext(1).area = {{'M1','DLS','VPL'}};
+
+%{
+param_ext(2).rec = {'D:\Descargas\Trabajo de titulo\Images\+2500_300Hz\maravilla_2017-06-17_16-39-32\maravilla_2017-06-17_16-39-32.mat'};
+param_ext(2).seg = {[1,6], [7,12]};
+param_ext(2).dbType = {'bm','trat'};
+param_ext(2).hem = {'L', 'R'};
+param_ext(2).area = {{'M1','STR','VPL'}, {'M1','STR'}};
+%}
+
+databaseMeta.param_ext = param_ext;
+
+for idx_rec = 1:length(param_ext)
+    %disp(param_ext(idx_rec).rec)
+    disp(['Loading ',param_ext(idx_rec).rec{:}])
+    load(param_ext(idx_rec).rec{:})
+    for idx_seg = 1:length(param_ext(idx_rec).seg)
+        hemisf_actual = param_ext(idx_rec).hem{idx_seg};
+        for idx_hem = 1:length(hemisf_actual)
+            for idx_area = 1:length(param_ext(idx_rec).area{:})
+                disp(param_ext(idx_rec).seg{idx_seg})
+                disp(param_ext(idx_rec).dbType(idx_seg))
+                disp(param_ext(idx_rec).hem{idx_seg})
+                disp(param_ext(idx_rec).area{:}{idx_area})
+
+
+                area_actual = param_ext(idx_rec).area{:}{idx_area};
+
+                canales_eval = find(~[registroLFP.channels.removed]);
+                slash_system = foldername(length(foldername));
+
+                [C,ia,ic] = unique({registroLFP.channels(canales_eval).area},'stable');
+
+                m = find(strcmp(C,[lower(hemisf_actual(idx_hem)),area_actual]));
+
+                osciSpect = registroLFP.areas(m).spectrogram.oscillations.mag;
+                fractalSpect = registroLFP.areas(m).spectrogram.fractals.mag;
+
+                idx_spect_artifacts = registroLFP.areas(m).idx_artifacts;
+                freq = registroLFP.areas(m).spectrogram.frequency;
+                time = registroLFP.areas(m).spectrogram.time;          
+
+                [mat_variables, labels_Var] = spectralVariables(osciSpect, fractalSpect, freq);
+
+                View_Spectral_Var;
+                
+                mat_variables_total(:,:,idx_area+(idx_hem-1)*) = mat_variables;
+                labels_Var_total(:,idx_area) = labels_Var;
+                
+                
+            end
+        end
+    end
+    databaseMeta.mat_variables(idx_rec) = mat_variables_total;
+    databaseMeta.labels_Var(idx_rec) = labels_Var_total;
+    disp('Rec finished')
+end
+
+
+
+
+
+
+
+
+
+
+
