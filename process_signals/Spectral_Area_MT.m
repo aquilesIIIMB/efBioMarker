@@ -48,10 +48,12 @@ for m = 1:length(ia)
     % FOOOF settings
     settings = struct();  % Use defaults
     f_range = [1, 100]; 
-            
+      
+    %%%%!!!! No contar a priori los artefactos, antes de correr esto
+    %%%%preguntar que segmento analizar, 0 o null: todo
+    %{ 
     parfor j = 1:length(time)
-
-        % Run FOOOF
+         % Run FOOOF
         try 
             fooof_results = fooof(freqs, data_spect_area(j,:), f_range, settings,1);
         catch
@@ -59,11 +61,29 @@ for m = 1:length(ia)
             fooof_results.fooofed_spectrum = zeros(size(data_spect_area(j,:))); % Falla si el primer bin es un artefacto
             fooof_results.bg_fit = zeros(size(data_spect_area(j,:)));
         end
-        
+
         mixed(j,:) = fooof_results.fooofed_spectrum;
         scale_free(j,:) = fooof_results.bg_fit;
-        
+
     end
+    %}
+    for j = 1:length(time)
+         % Run FOOOF
+        try 
+            fooof_results = fooof(freqs, data_spect_area(j,:), f_range, settings,1);
+        catch
+            % Se coloca como artefacto
+            fooof_results.fooofed_spectrum = zeros(size(data_spect_area(j,:))); % Falla si el primer bin es un artefacto
+            fooof_results.bg_fit = zeros(size(data_spect_area(j,:)));
+        end
+
+        mixed(j,:) = fooof_results.fooofed_spectrum;
+        scale_free(j,:) = fooof_results.bg_fit;
+
+    end
+    
+
+       
     
     mixed = 10.^mixed;
     scale_free = 10.^scale_free;

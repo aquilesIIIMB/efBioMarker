@@ -7,6 +7,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear; close all
+%{
 db(1).param_ext.rec = {'/home/controlmotor/Images/Database/CA_EC03_C15_PreQx__2018-09-21_13-08-56/CA_EC03_C15_PreQx__2018-09-21_13-08-56.mat'};
 db(1).param_ext.seg = {[1,6]};
 db(1).param_ext.dbType = {'bm'}; % bm o trat
@@ -19,24 +20,24 @@ db(2).param_ext.dbType = {'bm'};
 db(2).param_ext.hem = {'R'};
 db(2).param_ext.area = {{'M1','DLS','VPL'}};
 
-db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Images/+375/arturo2_2017-05-29_11-38-35/arturo2_2017-05-29_11-38-35.mat'};
-db(3).param_ext.seg = {[0,5]}; % 0,5
+db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Images/+2500_300Hz/maravilla_2017-06-17_16-39-32/maravilla_2017-06-17_16-39-32.mat'};
+db(3).param_ext.seg = {[1,6]};
+db(3).param_ext.dbType = {'bm'}; % bm o trat
+db(3).param_ext.hem = {'R'}; % L, R o LR
+db(3).param_ext.area = {{'M1','DLS','VPL'}};
+%}
+
+db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Images/+2500_300Hz/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39.mat'};
+db(3).param_ext.seg = {[0,5]};
 db(3).param_ext.dbType = {'bm'}; % bm o trat
 db(3).param_ext.hem = {'R'}; % L, R o LR
 db(3).param_ext.area = {{'M1','DLS','VPL'}};
 
-db(4).param_ext.rec = {'/home/controlmotor/Aquiles/Images/+2500_300Hz/maravilla_2017-06-17_16-39-32/maravilla_2017-06-17_16-39-32.mat'};
-db(4).param_ext.seg = {[1,6]};
-db(4).param_ext.dbType = {'bm'}; % bm o trat
-db(4).param_ext.hem = {'R'}; % L, R o LR
-db(4).param_ext.area = {{'M1','DLS','VPL'}};
-
-db(5).param_ext.rec = {'/home/controlmotor/Aquiles/Images/+2500_300Hz/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39.mat'};
-db(5).param_ext.seg = {[0,5]};
-db(5).param_ext.dbType = {'bm'}; % bm o trat
-db(5).param_ext.hem = {'R'}; % L, R o LR
-db(5).param_ext.area = {{'M1','DLS','VPL'}};
-
+db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Images/+375/arturo2_2017-05-29_11-38-35/arturo2_2017-05-29_11-38-35.mat'};
+db(3).param_ext.seg = {[8,13]};
+db(3).param_ext.dbType = {'bm'}; % bm o trat
+db(3).param_ext.hem = {'R'}; % L, R o LR
+db(3).param_ext.area = {{'M1','DLS','VPL'}};
 
 databaseMeta = db;
 
@@ -80,20 +81,20 @@ for idx_rec = 1:length(db)
 
                 View_Spectral_Var;
                 
-                %mat_variables_areaHem(:,:,idx_area+(idx_hem-1)*length(db(idx_rec).param_ext.area{idx_seg})) = mat_variables;
-                %labels_Var_areaHem(:,idx_area+(idx_hem-1)*length(db(idx_rec).param_ext.area{idx_seg})) = labels_Var;
+                mat_variables_areaHem(:,:,idx_area+(idx_hem-1)*length(db(idx_rec).param_ext.area{idx_seg})) = mat_variables;
+                labels_Var_areaHem(:,idx_area+(idx_hem-1)*length(db(idx_rec).param_ext.area{idx_seg})) = labels_Var;
                 
                 % Extraer caractersiticas, ver seg y metrica
                 % Almacenar en base de datos adecuada
                 
             end
         end
-        %mat_variables_seg{idx_seg} = mat_variables_areaHem;
-        %labels_Var_seg{idx_seg} = labels_Var_areaHem;
+        mat_variables_seg{idx_seg} = mat_variables_areaHem;
+        labels_Var_seg{idx_seg} = labels_Var_areaHem;
         disp('Seg finished')
     end
-    %databaseMeta(idx_rec).mat_variables = mat_variables_seg;
-    %databaseMeta(idx_rec).labels_Var = labels_Var_seg;
+    databaseMeta(idx_rec).mat_variables = mat_variables_seg;
+    databaseMeta(idx_rec).labels_Var = labels_Var_seg;
     disp('Rec finished')
 end
 

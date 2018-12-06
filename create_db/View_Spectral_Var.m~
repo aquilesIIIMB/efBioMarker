@@ -7,9 +7,8 @@ fprintf('\nVisualizacion de las variables espectrales\n')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 len_var = size(mat_variables,2);
-limit_rang = [0 25*10^3; 0 4*10^3; 0 12*10^3; 0 12*10^3; 0 12*10^3; 0 1.4*10^3;...
-    0 250; 0 35*10^3; 0.4 2.2; 0 600; 0 6*10^3; 0 5*10^3;...
-    0 3.5*10^3; 0 6*10^3; 0 6*10^3; 0 6*10^3; 0 6*10^3; 0 70];
+limit_rang = [0 25*10^3; 0 4*10^3; 0 12*10^3; 0 12*10^3; 0 1.4*10^3;...
+    0 250;0 35*10^3; 0.4 2.2; 0 350; 06*10^3];
 
 % Variables individuales
 for i = 1:len_var
@@ -33,7 +32,6 @@ for i = 1:len_var
     subplot(3,2,j)
     plot(time, mat_variables(:,i))
     title(labels_Var{i})
-    ylim([limit_rang(i,1) limit_rang(i,2)])
     j = j+1;
     
     if i == 6 || i == 12 || i == 18

@@ -12,13 +12,13 @@ clear; close all
 
 %% Parametros editables por el usuario 
 %% Ruta de la carpeta de los LFP
-path = 'D:\Descargas\Trabajo de titulo\Database\+2500_300Hz\maravilla_2017-06-17_16-39-32\';
+path = '/home/controlmotor/Aquiles/Database/-2500/charles_2017-06-16_17-07-38/';
 %path = input('path: \n','s');
 
 %% Canales que se analizaran
-%eval_channels = [1:38,43:53,60:64];
+%eval_channels = [1:38,43:53,60:64]; %Caro
 %eval_channels = [14:21,46:53];
-eval_channels = 1:64;
+eval_channels = 1:64; % flo
 %eval_channels = input('eval_channels: \n');
 
 %% Codificacion de canales
@@ -32,6 +32,25 @@ channel_codes = 'channel-codes/channel_codes_florencia_PUC.csv'; % Flo Futbolist
 %channel_codes = input('channel_codes: \n','s');
 
 %% Fin de los parametros
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

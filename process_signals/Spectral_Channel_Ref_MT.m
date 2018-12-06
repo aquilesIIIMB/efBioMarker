@@ -35,3 +35,11 @@ registroLFP.analysis_stages.spectral_channel_ref = 1;
 % Eliminacion de variables que no se van a guardar
 clearvars -except registroLFP regLFP path name_registro foldername inicio_foldername
 
+% Guardar matrices en .mat
+path_name_registro = [inicio_foldername,'Images',foldername,name_registro];
+
+% Descomentar para guardar
+save(path_name_registro,'-v7.3')
+
+disp(['It was saved in: ',path_name_registro])
+disp('Referenced signal processing is ready!!! :D')
