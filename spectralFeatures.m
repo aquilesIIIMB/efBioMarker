@@ -1,7 +1,7 @@
 function [mat_features, labels_features] = spectralFeatures(mat_var, labels_var, time, time_range, idx_spect_artifacts)
 
 
-disp('Extracting spectral features')
+%disp('Extracting spectral features')
 
 %{
 min_th = [600; 100; 600; 600; 200; 50;...
@@ -68,6 +68,7 @@ var_actual = mat_var(time > time_range(1) & time < time_range(2), idx_feat);
 mat_features = [mat_features, median(var_actual(idx_noArtif))];
 labels_features = {labels_features{:}, 'Dsf_wb_m'};
 
+%{
 % Rate delta/gammaL
 idx_feat = find(strcmp(labels_var, 'Rate delta-gammaL'));
 var_actual = mat_var(time > time_range(1) & time < time_range(2), idx_feat);
@@ -115,6 +116,7 @@ idx_feat = find(strcmp(labels_var, 'Rate beta-gammaH'));
 var_actual = mat_var(time > time_range(1) & time < time_range(2), idx_feat);
 mat_features = [mat_features, median(var_actual(idx_noArtif))];
 labels_features = {labels_features{:}, 'Rate_b-gH_m'};
+%}
 
 % Dominant frequency 
 idx_feat = find(strcmp(labels_var, 'Dominant frequency'));
@@ -239,6 +241,7 @@ end
 mat_features = [mat_features, var_measure];
 labels_features = {labels_features{:}, 'Dsf_wb_a'};
 
+%{
 % 
 idx_feat = find(strcmp(labels_var, 'Rate delta-gammaL'));
 var_actual = mat_var(time > time_range(1) & time < time_range(2), idx_feat);
@@ -344,7 +347,7 @@ end
 mat_features = [mat_features, var_measure];
 labels_features = {labels_features{:}, 'Rate_a-gH_a'};
 
-% Dominant frequency 
+% 
 idx_feat = find(strcmp(labels_var, 'Rate beta-gammaH'));
 var_actual = mat_var(time > time_range(1) & time < time_range(2), idx_feat);
 try
@@ -358,8 +361,7 @@ if isnan(var_measure)
 end
 mat_features = [mat_features, var_measure];
 labels_features = {labels_features{:}, 'Rate_b-gH_a'};
-
-
+%}
 
 
 end

@@ -32,7 +32,7 @@ sortedmat(1:18,:);
 figure
 for i=1:18
     
-    k = ranking_c(i);%sortedmat(i,2);
+    k = sortedmat(i,2);
     disp(k)
     
     plot([0.9,1.1], features(1:2,[k]),'*')
@@ -105,18 +105,19 @@ disp(sqrt(sum([f4,f2,f3].^2,2)))
 hold on
 plot(sqrt(sum([f4,f2,f3].^2,2)),'*')
 
-f1 = features(:,15);
-f2 = features(:,49);
-f3 = features(:,50);
-f4 = (features(:,15)./features(:,16));
-disp([f4,f2,f3])
-f1 = features_trat(:,15);
-f2 = features_trat(:,49);
-f3 = features_trat(:,50);
-f4 = (features_trat(:,15)./features_trat(:,16));
-disp([f4,f2,f3])
-
-
+f1 = features(:,15)./max(features(:,15));
+f2 = features(:,49)./max(features(:,49));
+f3 = features(:,50)./max(features(:,50));
+f4 = (features(:,15)./features(:,16))./max(features(:,15)./features(:,16));
+disp(sqrt(sum([f4,f2,f3].^2,2)))
+plot(sqrt(sum([f4,f2,f3].^2,2)),'*')
+f1 = features_trat(:,15)./max(features_trat(:,15));
+f2 = features_trat(:,49)./max(features_trat(:,49));
+f3 = features_trat(:,50)./max(features_trat(:,50));
+f4 = (features_trat(:,15)./features_trat(:,16))./max(features_trat(:,15)./features_trat(:,16));
+disp(sqrt(sum([f4,f2,f3].^2,2)))
+hold on
+plot(sqrt(sum([f4,f2,f3].^2,2)),'*')
 
 figure
 f1 = features(:,15)./max(features(:,15));

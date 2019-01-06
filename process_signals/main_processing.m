@@ -12,23 +12,23 @@ clear; close all
 
 %% Parametros editables por el usuario 
 %% Ruta de la carpeta de los LFP
-path = '/home/controlmotor/Aquiles/Database/CA_EC03_C18_NS__2018-11-06_16-58-18/';
+path = '/home/controlmotor/Aquiles/Database/orlando_2016-12-26_14-40-18/';
 %path = input('path: \n','s');
 
 %% Canales que se analizaran
-eval_channels = [1:38,43:53,60:64]; %Caro
+%eval_channels = [1:38,43:53,60:64]; %Caro
 %eval_channels = [14:21,46:53];
-%eval_channels = 1:64; % flo
+eval_channels = 1:64; % flo
 %eval_channels = input('eval_channels: \n');
 
 %% Codificacion de canales
 %channel_codes = 'channel-codes/channel_codes_florencia.csv'; % Flo
-%channel_codes = 'channel-codes/channel_codes_florencia_2_modificado.csv'; % Flo Esgrima UCH 
+channel_codes = 'channel-codes/channel_codes_florencia_2_modificado.csv'; % Flo Esgrima UCH 
 %%%  (Se dejaron las mismas areas que en 'channel_codes_florencia_PUC.csv' y se invirtieron los hemisferios originals L->R y R->L)
 %channel_codes = 'channel-codes/channel_codes_florencia_PUC.csv'; % Flo Futbolistas UC
 %channel_codes = 'channel-codes/channel_codes_Rata_R01_modificado.csv'; % Caro 
 %%%  (Se invirtieron los hemisferios originals L->R y R->L)
-channel_codes = 'channel-codes/channel_codes_caro_expC03.csv';
+%channel_codes = 'channel-codes/channel_codes_caro_expC03.csv';
 %channel_codes = input('channel_codes: \n','s');
 
 %% Fin de los parametros

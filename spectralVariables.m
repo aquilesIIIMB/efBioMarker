@@ -1,6 +1,6 @@
 function [mat_variables,labels_Var] = spectralVariables(osciSpect, fractalSpect, freq)
 
-disp('Extracting spectral variables')
+%disp('Extracting spectral variables')
 
 labels_Var = {'Pmix beta', 'Po delta', 'Po tetha', 'Po alpha', ...
     'Po beta', 'Po gammaL', 'Po gammaH', 'Psf widthband', ...
