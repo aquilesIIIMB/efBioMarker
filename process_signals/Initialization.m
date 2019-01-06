@@ -222,6 +222,7 @@ inicio_name_registro = slash_backslash(length(slash_backslash)-1);
 name_registro = path(inicio_name_registro+1:length(path)-1);
 registroLFP.name = name_registro;
 
+%{
 % Almacenar imagen del protocolo visto en el ADC8
 if exist(strcat(path, dir_pulse.name),'file') && ~isempty(dir_pulse)
     fig = figure('units','normalized','outerposition',[0 0 1 1]);
@@ -237,7 +238,7 @@ if exist(strcat(path, dir_pulse.name),'file') && ~isempty(dir_pulse)
     saveas(fig,name_figure_save,'fig');
     close(fig)
 end
-
+%}
 registroLFP.analysis_stages.initialization = 1;
 
 % Eliminacion de variables que no se guardaran

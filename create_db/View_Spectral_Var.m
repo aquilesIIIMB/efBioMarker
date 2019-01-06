@@ -18,7 +18,7 @@ for i = 1:len_var
     plot(time, mat_variables(:,i))
     title(labels_Var{i}, 'FontSize', 24)
     set(gca,'fontsize',20)
-    name_figure_save = [inicio_foldername,'Images',foldername,'SpectralVar',slash_system,[lower(hemisf_actual(idx_hem)),area_actual, ' Feature ',int2str(i),' ',labels_Var{i}]];
+    name_figure_save = [path_actual,slash_system,'SpectralVar',slash_system,[lower(hemisf_actual(idx_hem)),area_actual, ' Feature ',int2str(i),' ',labels_Var{i}]];
     saveas(fig,name_figure_save,'png');
     saveas(fig,name_figure_save,'fig');
     close(fig)
@@ -37,7 +37,7 @@ for i = 1:len_var
     j = j+1;
     
     if i == 6 || i == 12 || i == 18
-        name_figure_save = [inicio_foldername,'Images',foldername,'SpectralVar',slash_system,[lower(hemisf_actual(idx_hem)),area_actual, ' Group ',int2str(round(i/6))]];
+        name_figure_save = [path_actual,slash_system,'SpectralVar',slash_system,[lower(hemisf_actual(idx_hem)),area_actual, ' Group ',int2str(round(i/6))]];
         saveas(fig,name_figure_save,'png');
         saveas(fig,name_figure_save,'fig');
         close(fig)

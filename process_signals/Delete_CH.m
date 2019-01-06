@@ -14,7 +14,7 @@ if ~registroLFP.analysis_stages.spectral_channel_raw
 end
 
 % Sonido de alerta que se necesita al usuario
-sonido_alarma;    
+%%sonido_alarma;    
 
 % Ingresar los canales que se eliminaran, se sale del loop apretando "Enter"
 Ch_del = [];
