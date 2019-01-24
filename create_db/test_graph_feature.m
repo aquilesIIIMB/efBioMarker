@@ -2,19 +2,19 @@
 
 
 classes = [1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
-ranking = spider_wrapper(features,classes',54,'fisher')
+ranking = spider_wrapper(features,classes',129,'fisher')
 
 classes_c = [1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
-ranking_c = spider_wrapper(features,classes',54,'fisher');
+ranking_c = spider_wrapper(features,classes',129,'fisher');
 
 classes_l20 = [-1,-1,1,1,1,-1,-1,-1,-1,-1,-1];
-ranking_l20 = spider_wrapper(features,classes_l20',54,'fisher');
+ranking_l20 = spider_wrapper(features,classes_l20',129,'fisher');
 
 classes_l30 = [-1,-1,-1,-1,-1,1,1,1,-1,-1,-1];
-ranking_l30 = spider_wrapper(features,classes_l30',54,'fisher');
+ranking_l30 = spider_wrapper(features,classes_l30',129,'fisher');
 
 classes_l50 = [-1,-1,-1,-1,-1,-1,-1,-1,1,1,1];
-ranking_l50 = spider_wrapper(features,classes_l50',54,'fisher');
+ranking_l50 = spider_wrapper(features,classes_l50',129,'fisher');
 
 
 
@@ -35,11 +35,11 @@ for i=1:18
     k = ranking_c(i);%sortedmat(i,2);
     disp(k)
     
-    plot([0.9,1.1], features(1:2,[k]),'*')
+    plot([0.9,1,1.1], features(1:3,[k]),'*')
     hold on
-    plot([1.9,2,2.1], features(3:5,[k]),'*')
-    plot([2.9,3,3.1], features(6:8,[k]),'*')
-    plot([3.9,4,4.1], features(9:11,[k]),'*')
+    plot([1.9,2,2.1], features(4:6,[k]),'*')
+    plot([2.9,3,3.1], features(7:9,[k]),'*')
+    plot([3.9,4,4.1], features(10:12,[k]),'*')
     hold off
     
     waitforbuttonpress;
@@ -47,27 +47,25 @@ for i=1:18
 end 
     
     
-    
+figure    
 k = 15;
 
-%figure
-plot([0.9,1.1], features(1:2,[k]),'*')
+plot([0.9,1,1.1], features(1:3,[k]),'*')
 hold on
-plot([1.9,2,2.1], features(3:5,[k]),'*')
-plot([2.9,3,3.1], features(6:8,[k]),'*')
-plot([3.9,4,4.1], features(9:11,[k]),'*')
+plot([1.9,2,2.1], features(4:6,[k]),'*')
+plot([2.9,3,3.1], features(7:9,[k]),'*')
+plot([3.9,4,4.1], features(10:12,[k]),'*')
 hold off
 
-
+figure
 k_1 = 15;
 k_2 = 16;
 
-%figure
-plot([0.9,1.1], features(1:2,[k_1])./features(1:2,[k_2]),'*')
+plot([0.9,1,1.1], features(1:3,[k_1])./features(1:3,[k_2]),'*')
 hold on
-plot([1.9,2,2.1], features(3:5,[k_1])./features(3:5,[k_2]),'*')
-plot([2.9,3,3.1], features(6:8,[k_1])./features(6:8,[k_2]),'*')
-plot([3.9,4,4.1], features(9:11,[k_1])./features(9:11,[k_2]),'*')
+plot([1.9,2,2.1], features(4:6,[k_1])./features(4:6,[k_2]),'*')
+plot([2.9,3,3.1], features(7:9,[k_1])./features(7:9,[k_2]),'*')
+plot([3.9,4,4.1], features(10:12,[k_1])./features(10:12,[k_2]),'*')
 
 
 

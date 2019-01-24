@@ -67,7 +67,7 @@ for m = 1:length(ia)
 
     end
     %}
-    for j = 1:length(time)
+    for j = 1:length(time) %!!!!! length(time) (50*60) 
          % Run FOOOF
         try 
             fooof_results = fooof(freqs, data_spect_area(j,:), f_range, settings,1);

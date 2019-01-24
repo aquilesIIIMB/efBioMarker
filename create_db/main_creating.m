@@ -10,85 +10,92 @@ clear; close all
 
 %% Diagnostico y traking
 % Control
-db(1).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/1. Control/Shiwi (Suj04)/CA_EC03_C15_NS__2018-09-28_14-57-27/CA_EC03_C15_NS__2018-09-28_14-57-27.mat'};
+db(1).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/1. Control/Shiwi (Suj05)/CA_EC03_C15_NS__2018-09-28_14-57-27/CA_EC03_C15_NS__2018-09-28_14-57-27.mat'};
 db(1).param_ext.seg = {[30,35]};
 db(1).param_ext.dbType = {'bm'}; % bm o trat
 db(1).param_ext.hem = {'L'}; % L, R o LR
 db(1).param_ext.area = {{'CFA','STR','VPL'}};
 db(1).param_ext.class = {'C'};
 
-db(2).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/1. Control/Panda (Suj06)/CA_EC03_C18_NS__2018-11-06_16-58-18/CA_EC03_C18_NS__2018-11-06_16-58-18.mat'};
+db(2).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/1. Control/Rochi (Suj07)/CA_EC03_C22_NS__2019-01-07_15-32-48/CA_EC03_C22_NS__2019-01-07_15-32-48.mat'};
 db(2).param_ext.seg = {[30,35]};
 db(2).param_ext.dbType = {'bm'}; % bm o trat
-db(2).param_ext.hem = {'L'}; % L, R o LR
+db(2).param_ext.hem = {'R'}; % L, R o LR
 db(2).param_ext.area = {{'CFA','STR','VPL'}};
 db(2).param_ext.class = {'C'};
 
-% L20 
-db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/2. Lesion Temprana/Maravilla (Suj01)/maravilla_2017-06-05_10-47-34/maravilla_2017-06-05_10-47-34.mat'};
-db(3).param_ext.seg = {[0,5]};
-db(3).param_ext.dbType = {'bm'};
-db(3).param_ext.hem = {'R'};
-db(3).param_ext.area = {{'M1','DLS','VPL'}};
-db(3).param_ext.class = {'L20'};
+db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/1. Control/Panda (Suj06)/CA_EC03_C18_NS__2018-11-06_16-58-18/CA_EC03_C18_NS__2018-11-06_16-58-18.mat'};
+db(3).param_ext.seg = {[30,35]};
+db(3).param_ext.dbType = {'bm'}; % bm o trat
+db(3).param_ext.hem = {'L'}; % L, R o LR
+db(3).param_ext.area = {{'CFA','STR','VPL'}};
+db(3).param_ext.class = {'C'};
 
-db(4).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/2. Lesion Temprana/Arturo (Suj02)/arturo2_2017-05-29_11-38-35/arturo2_2017-05-29_11-38-35.mat'};
-db(4).param_ext.seg = {[0,5]}; % 0,5
-db(4).param_ext.dbType = {'bm'}; % bm o trat
-db(4).param_ext.hem = {'R'}; % L, R o LR
+% L20 
+db(4).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/2. Lesion Temprana/Maravilla (Suj01)/maravilla_2017-06-05_10-47-34/maravilla_2017-06-05_10-47-34.mat'};
+db(4).param_ext.seg = {[0,5]};
+db(4).param_ext.dbType = {'bm'};
+db(4).param_ext.hem = {'R'};
 db(4).param_ext.area = {{'M1','DLS','VPL'}};
 db(4).param_ext.class = {'L20'};
 
-db(5).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/2. Lesion Temprana/Charles (Suj03)/charles_2017-06-05_10-26-26/charles_2017-06-05_10-26-26.mat'};
+db(5).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/2. Lesion Temprana/Arturo (Suj02)/arturo2_2017-05-29_11-38-35/arturo2_2017-05-29_11-38-35.mat'};
 db(5).param_ext.seg = {[0,5]}; % 0,5
 db(5).param_ext.dbType = {'bm'}; % bm o trat
 db(5).param_ext.hem = {'R'}; % L, R o LR
 db(5).param_ext.area = {{'M1','DLS','VPL'}};
 db(5).param_ext.class = {'L20'};
 
-% L30
-db(6).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/3. Lesion Intermedia/Maravilla (Suj01)/maravilla_2017-06-17_16-39-32/maravilla_2017-06-17_16-39-32.mat'};
-db(6).param_ext.seg = {[1,6]};
+db(6).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/2. Lesion Temprana/Charles (Suj03)/charles_2017-06-05_10-26-26/charles_2017-06-05_10-26-26.mat'};
+db(6).param_ext.seg = {[0,5]}; % 0,5
 db(6).param_ext.dbType = {'bm'}; % bm o trat
 db(6).param_ext.hem = {'R'}; % L, R o LR
 db(6).param_ext.area = {{'M1','DLS','VPL'}};
-db(6).param_ext.class = {'L30'};
+db(6).param_ext.class = {'L20'};
 
-db(7).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/3. Lesion Intermedia/Arturo (Suj02)/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39.mat'};
+% L30
+db(7).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/3. Lesion Intermedia/Maravilla (Suj01)/maravilla_2017-06-17_16-39-32/maravilla_2017-06-17_16-39-32.mat'};
 db(7).param_ext.seg = {[1,6]};
 db(7).param_ext.dbType = {'bm'}; % bm o trat
 db(7).param_ext.hem = {'R'}; % L, R o LR
 db(7).param_ext.area = {{'M1','DLS','VPL'}};
 db(7).param_ext.class = {'L30'};
 
-db(8).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/3. Lesion Intermedia/Charles (Suj03)/charles_2017-06-16_17-07-38/charles_2017-06-16_17-07-38.mat'};
-db(8).param_ext.seg = {[0,5]};
+db(8).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/3. Lesion Intermedia/Arturo (Suj02)/arturo_2017-06-09_15-24-39/arturo_2017-06-09_15-24-39.mat'};
+db(8).param_ext.seg = {[1,6]};
 db(8).param_ext.dbType = {'bm'}; % bm o trat
 db(8).param_ext.hem = {'R'}; % L, R o LR
 db(8).param_ext.area = {{'M1','DLS','VPL'}};
 db(8).param_ext.class = {'L30'};
 
-% L50
-db(9).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Maravilla (Suj01)/maravilla_2017-07-04_15-19-26/maravilla_2017-07-04_15-19-26.mat'};
+db(9).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/3. Lesion Intermedia/Charles (Suj03)/charles_2017-06-16_17-07-38/charles_2017-06-16_17-07-38.mat'};
 db(9).param_ext.seg = {[0,5]};
 db(9).param_ext.dbType = {'bm'}; % bm o trat
 db(9).param_ext.hem = {'R'}; % L, R o LR
 db(9).param_ext.area = {{'M1','DLS','VPL'}};
-db(9).param_ext.class = {'L50'};
+db(9).param_ext.class = {'L30'};
 
-db(10).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Arturo (Suj02)/arturo3_2017-07-04_15-48-06/arturo3_2017-07-04_15-48-06.mat'};
+% L50
+db(10).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Maravilla (Suj01)/maravilla_2017-07-04_15-19-26/maravilla_2017-07-04_15-19-26.mat'};
 db(10).param_ext.seg = {[0,5]};
 db(10).param_ext.dbType = {'bm'}; % bm o trat
 db(10).param_ext.hem = {'R'}; % L, R o LR
 db(10).param_ext.area = {{'M1','DLS','VPL'}};
 db(10).param_ext.class = {'L50'};
 
-db(11).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Orlando (Suj07)/orlando_2016-12-26_14-40-18/orlando_2016-12-26_14-40-18.mat'};
+db(11).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Arturo (Suj02)/arturo3_2017-07-04_15-48-06/arturo3_2017-07-04_15-48-06.mat'};
 db(11).param_ext.seg = {[0,5]};
 db(11).param_ext.dbType = {'bm'}; % bm o trat
-db(11).param_ext.hem = {'L'}; % L, R o LR
+db(11).param_ext.hem = {'R'}; % L, R o LR
 db(11).param_ext.area = {{'M1','DLS','VPL'}};
 db(11).param_ext.class = {'L50'};
+
+db(12).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Orlando (Suj04)/orlando_2016-12-26_14-40-18/orlando_2016-12-26_14-40-18.mat'};
+db(12).param_ext.seg = {[0,5]};
+db(12).param_ext.dbType = {'bm'}; % bm o trat
+db(12).param_ext.hem = {'L'}; % L, R o LR
+db(12).param_ext.area = {{'M1','DLS','VPL'}};
+db(12).param_ext.class = {'L50'};
 
 %{
 %% Tratamiento
@@ -106,19 +113,63 @@ db(2).param_ext.hem = {'R'}; % L, R o LR
 db(2).param_ext.area = {{'M1','DLS','VPL'}};
 db(2).param_ext.class = {'L30'};
 
-db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Alex (Suj05)/CA_EC03_C14_CS130__2018-10-01_14-39-54/CA_EC03_C14_CS130__2018-10-01_14-39-54.mat'};
-db(3).param_ext.seg = {[15,20]};
+% Cambiar por otro sujeto
+db(3).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS130__2018-10-01_14-39-54/CA_EC03_C14_CS130__2018-10-01_14-39-54.mat'};
+db(3).param_ext.seg = {[0,5]};
 db(3).param_ext.dbType = {'trat'}; % bm o trat
 db(3).param_ext.hem = {'R'}; % L, R o LR
 db(3).param_ext.area = {{'CFA','STR','VPL'}};
 db(3).param_ext.class = {'L50'};
 
-db(4).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/4. Lesion Tardia/Alex (Suj05)/CA_EC03_C14_CS300__2018-09-28_16-38-37/CA_EC03_C14_CS300__2018-09-28_16-38-37.mat'};
+db(4).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS130__2018-10-01_14-39-54/CA_EC03_C14_CS130__2018-10-01_14-39-54.mat'};
 db(4).param_ext.seg = {[15,20]};
 db(4).param_ext.dbType = {'trat'}; % bm o trat
 db(4).param_ext.hem = {'R'}; % L, R o LR
 db(4).param_ext.area = {{'CFA','STR','VPL'}};
 db(4).param_ext.class = {'L50'};
+
+db(5).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS300__2018-09-28_16-38-37/CA_EC03_C14_CS300__2018-09-28_16-38-37.mat'};
+db(5).param_ext.seg = {[0,5]};
+db(5).param_ext.dbType = {'trat'}; % bm o trat
+db(5).param_ext.hem = {'R'}; % L, R o LR
+db(5).param_ext.area = {{'CFA','STR','VPL'}};
+db(5).param_ext.class = {'L50'};
+
+db(6).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS300__2018-09-28_16-38-37/CA_EC03_C14_CS300__2018-09-28_16-38-37.mat'};
+db(6).param_ext.seg = {[15,20]};
+db(6).param_ext.dbType = {'trat'}; % bm o trat
+db(6).param_ext.hem = {'R'}; % L, R o LR
+db(6).param_ext.area = {{'CFA','STR','VPL'}};
+db(6).param_ext.class = {'L50'};
+
+% Cambiar por otro sujeto
+db(7).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS130Hz_Ldopa__2018-12-21_15-21-30/CA_EC03_C14_CS130Hz_Ldopa__2018-12-21_15-21-30.mat'};
+db(7).param_ext.seg = {[0,5]};
+db(7).param_ext.dbType = {'trat'}; % bm o trat
+db(7).param_ext.hem = {'R'}; % L, R o LR
+db(7).param_ext.area = {{'CFA','STR','VPL'}};
+db(7).param_ext.class = {'L50'};
+
+db(8).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS130Hz_Ldopa__2018-12-21_15-21-30/CA_EC03_C14_CS130Hz_Ldopa__2018-12-21_15-21-30.mat'};
+db(8).param_ext.seg = {[40,45]};
+db(8).param_ext.dbType = {'trat'}; % bm o trat
+db(8).param_ext.hem = {'R'}; % L, R o LR
+db(8).param_ext.area = {{'CFA','STR','VPL'}};
+db(8).param_ext.class = {'L50'};
+
+db(9).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS300Hz_Ldopa_2018-12-18_16-42-21/CA_EC03_C14_CS300Hz_Ldopa_2018-12-18_16-42-21.mat'};
+db(9).param_ext.seg = {[0,5]};
+db(9).param_ext.dbType = {'trat'}; % bm o trat
+db(9).param_ext.hem = {'R'}; % L, R o LR
+db(9).param_ext.area = {{'CFA','STR','VPL'}};
+db(9).param_ext.class = {'L50'};
+
+db(10).param_ext.rec = {'/home/controlmotor/Aquiles/Fractales Biomarcador/Database/Extra/Alex (Suj08)/CA_EC03_C14_CS300Hz_Ldopa_2018-12-18_16-42-21/CA_EC03_C14_CS300Hz_Ldopa_2018-12-18_16-42-21.mat'};
+db(10).param_ext.seg = {[40,45]};
+db(10).param_ext.dbType = {'trat'}; % bm o trat
+db(10).param_ext.hem = {'R'}; % L, R o LR
+db(10).param_ext.area = {{'CFA','STR','VPL'}};
+db(10).param_ext.class = {'L50'};
 %}
 
 
@@ -173,7 +224,7 @@ for idx_rec = 1:length(db)
                 % Extraer caractersiticas
                 [mat_features, labels_features] = spectralFeatures(mat_variables, labels_Var, time, time_range, idx_spect_artifacts);
 
-                %%View_Spectral_Var;
+                View_Spectral_Var;
                 
                 % Almacenar en base de datos adecuada
                 mat_variables_areaHem(:,:,idx_area+(idx_hem-1)*length(db(idx_rec).param_ext.area{idx_seg})) = mat_variables;
