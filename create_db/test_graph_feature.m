@@ -30,16 +30,20 @@ sortedmat = ranking_gen(idx,:);
 sortedmat(1:18,:);
 
 figure
-for i=1:18
+for i=1:129
     
-    k = ranking_c(i);%sortedmat(i,2);
+    k = i;%ranking_c(i);%sortedmat(i,2);
     disp(k)
     
-    plot([0.9,1,1.1], features(1:3,[k]),'*')
+    plot([0.9,1,1.1], features(1:3,[k]),'*','LineWidth',6,'MarkerSize',10)
     hold on
-    plot([1.9,2,2.1], features(4:6,[k]),'*')
-    plot([2.9,3,3.1], features(7:9,[k]),'*')
-    plot([3.9,4,4.1], features(10:12,[k]),'*')
+    plot([1.9,2,2.1], features(4:6,[k]),'*','LineWidth',6,'MarkerSize',10)
+    plot([2.9,3,3.1], features(7:9,[k]),'*','LineWidth',6,'MarkerSize',10)
+    plot([3.9,4,4.1], features(10:12,[k]),'*','LineWidth',6,'MarkerSize',10)
+    
+    plot([2.9,3], features_trat(1:2,[k]),'*k','LineWidth',6,'MarkerSize',10)
+    plot([5.7,6.3], features_trat([5,9],[k]),'r*','LineWidth',6,'MarkerSize',10)
+    plot([5.7,6.3], features_trat([6,10],[k]),'k*','LineWidth',6,'MarkerSize',10)
     hold off
     
     waitforbuttonpress;
@@ -48,7 +52,7 @@ end
     
     
 figure    
-k = 15;
+k = 43;
 
 plot([0.9,1,1.1], features(1:3,[k]),'*')
 hold on
@@ -56,6 +60,17 @@ plot([1.9,2,2.1], features(4:6,[k]),'*')
 plot([2.9,3,3.1], features(7:9,[k]),'*')
 plot([3.9,4,4.1], features(10:12,[k]),'*')
 hold off
+
+figure    
+k = 28;
+
+plot(ones(3,1), features(1:3,[k]),'*')
+hold on
+plot(ones(3,1), features(4:6,[k]),'*')
+plot(ones(3,1), features(7:9,[k]),'*')
+plot(ones(3,1), features(10:12,[k]),'*')
+hold off
+
 
 figure
 k_1 = 15;
